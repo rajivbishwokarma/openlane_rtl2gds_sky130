@@ -5,17 +5,17 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 ## Abstract
 
 ## Table of Contents
-| Day | Module |                          Topic                                       | Status  |
-|:---:|:------:|:--------------------------------------------------------------------:|:-------:|
-| 1   |        | [Inception of open-source EDA, OpenLANE, and Sky130 PDK]()           |         |
-|     | SK1    | [Introduction to RISC-V, QFN-48, Physical chip layout]()             |         |
-|     | SK2    | [Simplified and detailed RTL2GDS flow using OpenLANE]()              |         |
-|     | SK3    | [Using OpenLANE for synthesizing sample Pico-RISC-V module]()        |         |
-| 2   |        | [Good floorplan vs bad floorplan and introduction to library cells](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#day-2-good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells)        |   In-Progress      |
-|     | SK1    | [Power planning and floor planning]()        |         |
-| 3   |        | [Design library cell using Magic Layout and ngspice characterization]() |         |
-| 4   |        | [Pre-layout timing analysis and importance of good clock tree]()      |         |
-| 5   |        | [Final steps for RTL2GDS using tritonRoute and openSTA]()             |         |
+| Day | Module |Part|                          Topic                                       | Status  |
+|:---:|:------:|:------:|:--------------------------------------------------------------------:|:-------:|
+| 1   |        |       |[Inception of open-source EDA, OpenLANE, and Sky130 PDK]()           |         |
+|     | SK1    |       |[Introduction to RISC-V, QFN-48, Physical chip layout]()             |         |
+|     | SK2    |       |[Simplified and detailed RTL2GDS flow using OpenLANE]()              |         |
+|     | SK3    |       |[Using OpenLANE for synthesizing sample Pico-RISC-V module]()        |         |
+| 2   |        |       |[Good floorplan vs bad floorplan and introduction to library cells](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#day-2-good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells)        |   In-Progress      |
+|     | SK1    |       |[Power planning and floor planning]()        |         |
+| 3   |        |       |[Design library cell using Magic Layout and ngspice characterization]() |         |
+| 4   |        |       |[Pre-layout timing analysis and importance of good clock tree]()      |         |
+| 5   |        |       |[Final steps for RTL2GDS using tritonRoute and openSTA]()             |         |
 
 ## Day 2: Good floorplan vs bad floorplan and introduction to library cells
 ###  SK1: Power planning and floor planning
@@ -50,8 +50,11 @@ These are the modules that are in the top level design and reused multiple times
 
 
 ### [+] Decoupling capacitors
-We need to surround the pre-placed cells with decoupling capacitors. We do this to make sure that when the output switches from logic zero to logic one, this high output falls within the noise margin of the output. The below figure shows the acceptable signal in noise margin levels at two ends of the graph, while the center signal is unpredictable and not acceptable.
+When the physical distance between the power source and a certain pre-placed cells is high, some power will be lost due to the resistance of the wires. Therefore, we need to surround the pre-placed cells with decoupling capacitors. We do this to make sure that when the output switches from logic zero to logic one, the high output is within noise margin (as shown in left figure below). The capacitors are placed as shown in right figure below.
 
-<p align="center">
-<img width=400 src="./day2/sk1/L1_Utilization_factor_and_aspect_ratio/noise_margin.jpg" >
+<p float="left">
+    <img width=350 src="./day2/sk1/L1_Utilization_factor_and_aspect_ratio/noise_margin.jpg" >
+    <img width=290 src="./day2/sk1/L1_Utilization_factor_and_aspect_ratio/decoupling_cap.jpg" >
 </p>
+
+### [+] Power Planning
