@@ -6,13 +6,21 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 
 ## Table of Contents
 | Day | Module |Part|                          Topic                                       | Status  |
-|:---:|:------:|:------:|:--------------------------------------------------------------------:|:-------:|
+|:---|:------|:------|:--------------------------------------------------------------------|:-------:|
 | 1   |        |       |[Inception of open-source EDA, OpenLANE, and Sky130 PDK]()           |         |
 |     | SK1    |       |[Introduction to RISC-V, QFN-48, Physical chip layout]()             |         |
 |     | SK2    |       |[Simplified and detailed RTL2GDS flow using OpenLANE]()              |         |
 |     | SK3    |       |[Using OpenLANE for synthesizing sample Pico-RISC-V module]()        |         |
 | 2   |        |       |[Good floorplan vs bad floorplan and introduction to library cells](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#day-2-good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells)        |   :construction:      |
 |     | SK1    |       |[Power planning and floor planning]()        |         |
+|     |        |  L1   | [Utilization Ratio and Aspect Ratio](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-utilization-factor-and-aspect-ratio) |         |
+|     |        |  L2   | [Pre-placed cells](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-pre-placed-cells) |         |
+|     |        |  L3   | [Decoupling capacitors](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-decoupling-capacitors) |         |
+|     |        |  L4   | [Power Planning](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-power-planning) |         |
+|     |        |  L5   | [Pin placement and logic cell placement blockage](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |         |
+|     |        |  L6   | [Steps to run floorplan using OpenLANE](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |         |
+|     |        |  L7   | [Review floorplan files and steps to view floorplan](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |         |
+|     |        |  L8   | [](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |         |
 | 3   |        |       |[Design library cell using Magic Layout and ngspice characterization]() |         |
 | 4   |        |       |[Pre-layout timing analysis and importance of good clock tree]()      |         |
 | 5   |        |       |[Final steps for RTL2GDS using tritonRoute and openSTA]()             |         |
@@ -21,7 +29,7 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 ###  SK1: Power planning and floor planning
 This section covers multiple topics ranging from utilization factor, aspect ratio, pre-placed cells and de-coupling capacitors to power planning and floor planning.
 
-### [+] Utilization factor and aspect ratio
+### **[+] Utilization factor and aspect ratio**
 
 __Utilization factor refers to how much of the total area of the core are you using to place your logic.__ Using the following figure, for example, if a core has an area of 4 * 2 sq. unit and your logic uses four standard cells, each of area 1 sq. unit, which totals to 4 * 1 sq. unit = 4 sq. unit then your utilization factor can be calculated with the following formula.
 
@@ -47,11 +55,11 @@ Aspect ratio = 2 unit / 4 unit = 0.5
 
 Therefore, utilization factor basically measure how much physical space in the core your logic blocks have used and how much space is remaining for your routing and logic cells. Aspect ratio, on the other hand tells you the shape of your core. 
 
-### [+] Pre-placed cells
+### **[+] Pre-placed cells**
 These are the modules that are in the top level design and reused multiple times, however, instead of instantiating them in multiple locations they are place in in one location and then connections are routed to and from wherever they are needed. Their location is fixed during the whole design cycle and the automatic placement tool will not move them, rather the automatic placement tool will place other modules by condering these modules. 
 
 
-### [+] Decoupling capacitors
+### **[+] Decoupling capacitors**
 When the physical distance between the power source and a certain pre-placed cells is high, some power will be lost due to the resistance of the wires. Therefore, we need to surround the pre-placed cells with decoupling capacitors. We do this to make sure that when the output switches from logic zero to logic one, the high output is within noise margin (as shown in left figure below). The capacitors are placed as shown in right figure below.
 
 <p float="left">
@@ -59,4 +67,4 @@ When the physical distance between the power source and a certain pre-placed cel
     <img width=335 src="./day2/sk1/decoupling_cap.jpg" >
 </p>
 
-### [+] Power Planning
+### **[+] Power Planning**
