@@ -12,16 +12,18 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 |     | SK2    | [Simplified and detailed RTL2GDS flow using OpenLANE]()              |         |
 |     | SK3    | [Using OpenLANE for synthesizing sample Pico-RISC-V module]()        |         |
 | 2   |        | [Good floorplan vs bad floorplan and introduction to library cells](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#day-2-good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells)        |   In-Progress      |
+|     | SK1    | [Power planning and floor planning]()        |         |
 | 3   |        | [Design library cell using Magic Layout and ngspice characterization]() |         |
 | 4   |        | [Pre-layout timing analysis and importance of good clock tree]()      |         |
 | 5   |        | [Final steps for RTL2GDS using tritonRoute and openSTA]()             |         |
 
 ## Day 2: Good floorplan vs bad floorplan and introduction to library cells
-###  SK1: Chip floor planning considerations
-#### L1: Utilization factor and aspect ratio
-**Utilization factor refers to how much of the total area of the core are you using to place your logic.**
+###  SK1: Power planning and floor planning
+This section covers multiple topics ranging from utilization factor, aspect ratio, pre-placed cells and de-coupling capacitors to power planning and floor planning.
 
-Using the following figure, for example, if a core has an area of 4 * 2 sq. unit and your logic uses four standard cells, each of area 1 sq. unit, which totals to 4 * 1 sq. unit = 4 sq. unit then your utilization factor can be calculated with the following formula.
+### [+] Utilization factor and aspect ratio
+
+__Utilization factor refers to how much of the total area of the core are you using to place your logic.__ Using the following figure, for example, if a core has an area of 4 * 2 sq. unit and your logic uses four standard cells, each of area 1 sq. unit, which totals to 4 * 1 sq. unit = 4 sq. unit then your utilization factor can be calculated with the following formula.
 
 ![Rectangle core and square logic](./day2/sk1/L1_Utilization_factor_and_aspect_ratio/rectangle_core.jpg "Rectangle core and square logic")
 
@@ -40,3 +42,16 @@ For the example above,
 ```
 Aspect ratio = 2 unit / 4 unit = 0.5
 ```
+
+Therefore, utilization factor basically measure how much physical space in the core your logic blocks have used and how much space is remaining for your routing and logic cells. Aspect ratio, on the other hand tells you the shape of your core. 
+
+### [+] Pre-placed cells
+These are the modules that are in the top level design and reused multiple times, however, instead of instantiating them in multiple locations they are place in in one location and then connections are routed to and from wherever they are needed. Their location is fixed during the whole design cycle and the automatic placement tool will not move them, rather the automatic placement tool will place other modules by condering these modules. 
+
+
+### [+] Decoupling capacitors
+We need to surround the pre-placed cells with decoupling capacitors. We do this to make sure that when the output switches from logic zero to logic one, this high output falls within the noise margin of the output. The below figure shows the acceptable signal in noise margin levels at two ends of the graph, while the center signal is unpredictable and not acceptable.
+
+<p aligh="center">
+<img src="./day2/sk1/L1_Utilization_factor_and_aspect_ratio/noise_margin.jpg" width=400>
+</p>
