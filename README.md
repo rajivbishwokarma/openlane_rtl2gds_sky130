@@ -11,7 +11,7 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 |     | SK1    |       |[Introduction to RISC-V, QFN-48, Physical chip layout]()             |         |
 |     | SK2    |       |[Simplified and detailed RTL2GDS flow using OpenLANE]()              |         |
 |     | SK3    |       |[Using OpenLANE for synthesizing sample Pico-RISC-V module]()        |         |
-| 2   |        |       |[Good floorplan vs bad floorplan and introduction to library cells](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#day-2-good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells)        |   In-Progress      |
+| 2   |        |       |[Good floorplan vs bad floorplan and introduction to library cells](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#day-2-good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells)        |   :construction:      |
 |     | SK1    |       |[Power planning and floor planning]()        |         |
 | 3   |        |       |[Design library cell using Magic Layout and ngspice characterization]() |         |
 | 4   |        |       |[Pre-layout timing analysis and importance of good clock tree]()      |         |
