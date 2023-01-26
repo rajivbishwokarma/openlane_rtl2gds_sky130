@@ -6,15 +6,15 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 ## Table of Contents
 | Day | Module | Sub-module |                          Topic                                       | Status  |
 |:---:|:------:|:----------:|:--------------------------------------------------------------------:|:-------:|
-| 1   |        |            | Inception of open-source EDA, OpenLANE, and Sky130 PDK               |         |
-|     |  D1    | SK1        | Introduction to RISC-V, QFN-48, Physical chip layout                 |         |
-|     |        | SK2        | Simplified and detailed RTL2GDS flow using OpenLANE                  |         |
-|     |  LAB   |            | Using OpenLANE for synthesizing sample Pico-RISC-V module            |         |
+| 1   |        |            | [Inception of open-source EDA, OpenLANE, and Sky130 PDK]()           |         |
+|     |  D1    | SK1        | [Introduction to RISC-V, QFN-48, Physical chip layout]()              |         |
+|     |        | SK2        | [Simplified and detailed RTL2GDS flow using OpenLANE]()               |         |
+|     |  LAB   | SK3        | [Using OpenLANE for synthesizing sample Pico-RISC-V module]()         |         |
 |     |        |            |                                                                      |         |
-| 2   |  D2    |            | Using OpenLANE for synthesizing sample Pico-RISC-V module            |         |
+| 2   |  D2    |            | [Using OpenLANE for synthesizing sample Pico-RISC-V module]()         |         |
 |     |        |            |                                                                      |         |
-| 3   |        |            | Design library cell using Magic Layout and ngspice characterization  |         |
+| 3   |        |            | [Design library cell using Magic Layout and ngspice characterization]() |         |
 |     |        |            |                                                                      |         |
-| 4   |        |            | Pre-layout timing analysis and importance of good clock tree         |         |
+| 4   |        |            | [Pre-layout timing analysis and importance of good clock tree]()      |         |
 |     |        |            |                                                                      |         |
-| 5   |        |            | Final steps for RTL2GDS using tritonRoute and openSTA                |         |
+| 5   |        |            | [Final steps for RTL2GDS using tritonRoute and openSTA]()             |         |
