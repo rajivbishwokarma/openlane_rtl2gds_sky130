@@ -25,8 +25,6 @@ Using the following figure, for example, if a core has an area of 4 * 2 sq. unit
 
 ![Rectangle core and square logic](./day2/sk1/L1_Utilization_factor_and_aspect_ratio/rectangle_core.jpg "Rectangle core and square logic")
 
-![Rectangle core and square logic](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130/blob/master/day2/sk1/L1_Utilization_factor_and_aspect_ratio/rectangle_core.jpg "Rectangle core and square logic")
-
 $$ Utilization\ Factor = \frac{Area\ occupied\ by\ the\ netlist}{Total\ area\ of\ the\ core} $$
 
 For the above given data, 
