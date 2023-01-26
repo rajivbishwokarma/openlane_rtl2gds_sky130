@@ -19,17 +19,18 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 ###  SK1: Chip floor planning considerations
 #### L1: Utilization factor and aspect ratio
 Utilization factor refers to how much of the total area of the core are you using to place your logic. For example, if a core has an area of 2 * 2 sq. unit and your logic uses four standard cells, each of area 1 sq. unit, which totals to 4 * 1 sq. unit = 4 sq. unit then your utilization factor can be calculated with the following formula.
-'''
+```python
 Utilization factor = (Area occupied by the netlist) / (Total area of the core)
 
 For the above given data, 
 Utilization factor = (4 * 1 sq. unit) / ( 2 * 2 sq. unit) = 1
-'''python
+```
+
 Aspect ratio is the ratio between height to width of your logic area. Using the data from above example, you can calculate the aspect ratio using the following formula.
 
-'''python
+```python
 Aspect ratio = Height / Width
 
 For the example above, 
 Aspect ratio = 2 unit / 2 unit = 1
-'''
+```
