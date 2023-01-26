@@ -7,11 +7,14 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 | Day | Module | Sub-module |                          Topic                                       | Status  |
 |:---:|:------:|:----------:|:--------------------------------------------------------------------:|:-------:|
 | 1   |        |            | Inception of open-source EDA, OpenLANE, and Sky130 PDK               |         |
-|     |  1.1   |            | How to talk to computers                                             |         |
-|     |        | 1.1.1      | Introduction to QFN-48, Package chip, pads, core, die, and IPS       |         |
-|     |        | 1.1.2      | Introduction to RISC-V                                               |         |
-|     |        | 1.1.3      | From Software Applications to Hardware                               |         |
-| 2   |        |            | Good floorplan vs bad floorplan and introduction to library cells    |         |
+|     |  D1    | SK1        | Introduction to RISC-V, QFN-48, Physical chip layout                 |         |
+|     |        | SK2        | Simplified and detailed RTL2GDS flow using OpenLANE                  |         |
+|     |  LAB   |            | Using OpenLANE for synthesizing sample Pico-RISC-V module            |         |
+|     |        |            |                                                                      |         |
+| 2   |  D2    |            | Using OpenLANE for synthesizing sample Pico-RISC-V module            |         |
+|     |        |            |                                                                      |         |
 | 3   |        |            | Design library cell using Magic Layout and ngspice characterization  |         |
+|     |        |            |                                                                      |         |
 | 4   |        |            | Pre-layout timing analysis and importance of good clock tree         |         |
+|     |        |            |                                                                      |         |
 | 5   |        |            | Final steps for RTL2GDS using tritonRoute and openSTA                |         |
