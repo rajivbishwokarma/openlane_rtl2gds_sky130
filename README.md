@@ -53,8 +53,8 @@ These are the modules that are in the top level design and reused multiple times
 When the physical distance between the power source and a certain pre-placed cells is high, some power will be lost due to the resistance of the wires. Therefore, we need to surround the pre-placed cells with decoupling capacitors. We do this to make sure that when the output switches from logic zero to logic one, the high output is within noise margin (as shown in left figure below). The capacitors are placed as shown in right figure below.
 
 <p float="left">
-    <img width=350 src="./day2/sk1/L1_Utilization_factor_and_aspect_ratio/noise_margin.jpg" >
-    <img width=290 src="./day2/sk1/L1_Utilization_factor_and_aspect_ratio/decoupling_cap.jpg" >
+    <img width=400 src="./day2/sk1/L1_Utilization_factor_and_aspect_ratio/noise_margin.jpg" >
+    <img width=335 src="./day2/sk1/L1_Utilization_factor_and_aspect_ratio/decoupling_cap.jpg" >
 </p>
 
 ### [+] Power Planning
