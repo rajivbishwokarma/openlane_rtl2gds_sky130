@@ -52,6 +52,6 @@ These are the modules that are in the top level design and reused multiple times
 ### [+] Decoupling capacitors
 We need to surround the pre-placed cells with decoupling capacitors. We do this to make sure that when the output switches from logic zero to logic one, this high output falls within the noise margin of the output. The below figure shows the acceptable signal in noise margin levels at two ends of the graph, while the center signal is unpredictable and not acceptable.
 
-<p aligh="center">
-<img src="./day2/sk1/L1_Utilization_factor_and_aspect_ratio/noise_margin.jpg" width=400>
+<p align="center">
+<img width=400 src="./day2/sk1/L1_Utilization_factor_and_aspect_ratio/noise_margin.jpg" >
 </p>
