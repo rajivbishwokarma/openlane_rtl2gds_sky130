@@ -5,7 +5,7 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 
 ## Table of Contents
 | Day | Module |                          Topic                                       | Status  |
-|:---:|:------:|:----------:|:--------------------------------------------------------------------:|:-------:|
+|:---:|:------:|:--------------------------------------------------------------------:|:-------:|
 | 1   |        | [Inception of open-source EDA, OpenLANE, and Sky130 PDK]()           |         |
 |     | SK1    | [Introduction to RISC-V, QFN-48, Physical chip layout]()              |         |
 |     | SK2    | [Simplified and detailed RTL2GDS flow using OpenLANE]()               |         |
