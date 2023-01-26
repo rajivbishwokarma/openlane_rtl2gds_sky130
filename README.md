@@ -22,18 +22,16 @@ Utilization factor refers to how much of the total area of the core are you usin
 
 $$ Utilization Factor = \frac{Area\ occupied\ by\ the\ netlist}{Total\ area\ of\ the\ core} $$
 
-```
-Utilization factor = (Area occupied by the netlist) / (Total area of the core)
-
 For the above given data, 
+```
 Utilization factor = (4 * 1 sq. unit) / ( 2 * 2 sq. unit) = 1
 ```
 
 Aspect ratio is the ratio between height to width of your logic area. Using the data from above example, you can calculate the aspect ratio using the following formula.
 
-```
-Aspect ratio = Height / Width
+$$ Aspect Ratio = \frac{Height}{Width} $$
 
 For the example above, 
+```
 Aspect ratio = 2 unit / 2 unit = 1
 ```
