@@ -25,7 +25,9 @@ This section covers multiple topics ranging from utilization factor, aspect rati
 
 __Utilization factor refers to how much of the total area of the core are you using to place your logic.__ Using the following figure, for example, if a core has an area of 4 * 2 sq. unit and your logic uses four standard cells, each of area 1 sq. unit, which totals to 4 * 1 sq. unit = 4 sq. unit then your utilization factor can be calculated with the following formula.
 
-![Rectangle core and square logic](./day2/sk1/L1_Utilization_factor_and_aspect_ratio/rectangle_core.jpg "Rectangle core and square logic")
+<p align="center">
+<img src="./day2/sk1/rectangle_core.jpg" width=600>
+</p>
 
 $$ Utilization\ Factor = \frac{Area\ occupied\ by\ the\ netlist}{Total\ area\ of\ the\ core} $$
 
@@ -53,8 +55,8 @@ These are the modules that are in the top level design and reused multiple times
 When the physical distance between the power source and a certain pre-placed cells is high, some power will be lost due to the resistance of the wires. Therefore, we need to surround the pre-placed cells with decoupling capacitors. We do this to make sure that when the output switches from logic zero to logic one, the high output is within noise margin (as shown in left figure below). The capacitors are placed as shown in right figure below.
 
 <p float="left">
-    <img width=400 src="./day2/sk1/L1_Utilization_factor_and_aspect_ratio/noise_margin.jpg" >
-    <img width=335 src="./day2/sk1/L1_Utilization_factor_and_aspect_ratio/decoupling_cap.jpg" >
+    <img width=400 src="./day2/sk1/noise_margin.jpg" >
+    <img width=335 src="./day2/sk1/decoupling_cap.jpg" >
 </p>
 
 ### [+] Power Planning
