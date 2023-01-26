@@ -21,8 +21,7 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 #### L1: Utilization factor and aspect ratio
 **Utilization factor refers to how much of the total area of the core are you using to place your logic.**
 
-For example, if a core has an area of 2 * 2 sq. unit and your logic uses four standard cells, each of area 1 sq. unit, which totals to 4 * 1 sq. unit = 4 sq. unit then your utilization factor can be calculated with the following formula.
-
+Using the following figure, for example, if a core has an area of 4 * 2 sq. unit and your logic uses four standard cells, each of area 1 sq. unit, which totals to 4 * 1 sq. unit = 4 sq. unit then your utilization factor can be calculated with the following formula.
 
 ![Rectangle core and square logic](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130/blob/master/day2/sk1/L1_Utilization_factor_and_aspect_ratio/rectangle_core.jpg "Rectangle core and square logic")
 
@@ -30,10 +29,10 @@ $$ Utilization\ Factor = \frac{Area\ occupied\ by\ the\ netlist}{Total\ area\ of
 
 For the above given data, 
 ```
-Utilization factor = (4 * 1 sq. unit) / ( 2 * 2 sq. unit) = 1
+Utilization factor = (4 * 1 sq. unit) / ( 4 * 2 sq. unit) = 0.5
 ```
 
-Aspect ratio is the ratio between height to width of your logic area. Using the data from above example, you can calculate the aspect ratio using the following formula.
+**Aspect ratio is the ratio between height to width of your logic area.** Using the data from above example, you can calculate the aspect ratio using the following formula.
 
 $$ Aspect\ Ratio = \frac{Height}{Width} $$
 
