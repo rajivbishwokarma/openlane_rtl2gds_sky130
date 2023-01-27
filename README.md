@@ -12,7 +12,7 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 |     | SK2    |       |[Simplified and detailed RTL2GDS flow using OpenLANE]()              |         |
 |     | SK3    |       |[Using OpenLANE for synthesizing sample Pico-RISC-V module]()        |         |
 | 2   |        |       |[Good floorplan vs bad floorplan and introduction to library cells](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#day-2-good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells)        |   :construction:      |
-|     | SK1    |       |[Power planning and floor planning]()        |         |
+|     | SK1    |       |[Chip floor planning considerations]()        |    :100:     |
 |     |        |  L1   | [Utilization Ratio and Aspect Ratio](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-utilization-factor-and-aspect-ratio) |         |
 |     |        |  L2   | [Pre-placed cells](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-pre-placed-cells) |         |
 |     |        |  L3   | [Decoupling capacitors](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-decoupling-capacitors) |         |
@@ -20,7 +20,7 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 |     |        |  L5   | [Pin placement and logic cell placement blockage](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |         |
 |     |        |  L6   | [Steps to run floorplan using OpenLANE](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |         |
 |     |        |  L7   | [Review floorplan files and steps to view floorplan](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |         |
-|     |        |  L8   | [](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |         |
+|     |        |  L8   | [Review floorplan layout in Magic](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |         |
 | 3   |        |       |[Design library cell using Magic Layout and ngspice characterization]() |         |
 | 4   |        |       |[Pre-layout timing analysis and importance of good clock tree]()      |         |
 | 5   |        |       |[Final steps for RTL2GDS using tritonRoute and openSTA]()             |         |
@@ -68,3 +68,78 @@ When the physical distance between the power source and a certain pre-placed cel
 </p>
 
 ### **[+] Power Planning**
+Voltage droop can occur during a simultaneous low to high transition (or ground bounce during high to low) in, say, a 32-bit bus when the physical distance between the power source and power target components is high. It is not feasible to place decoupling capacitors everywhere to resolve this issue as we won't have enough area to implement our own logic. Therefore, the most efficient method of solving this problem is to create a grid of power sources that span the whole core area, and, thus, provide enough power to all the components. This grid can be seen in the following image.
+
+<p align="center">
+    <img width=400 src="./day2/sk1/power_plan.jpg">
+</p>
+
+In the above image, each pair of VDD and VSS wire is one source and they are routed so that they cover the entire area of the chip.
+
+### **[+] Pin placement and logical cell placement blockage**
+Pinn placement refers to the arrangement of the input and output pins of the design in the most efficient way possible within the mmodule For example, an equivalent pin placement (right) of a logic circuit (left) is given below.
+
+<p float="left">
+    <img width = 300 src="./day2/sk1/pin_placement.jpg" >
+    <img width = 400 src="./day2/sk1/pin_placement2.jpg" >
+</p>
+
+As can be seen from both the images, the inputs and outputs will be placed somwhere close to the module that it belongs to. However, if there any any pre-placed cells in the design, then pre-placed cells' area will be avoided during both the placement of the logic module and routing of the logic module. On interesting point about the pin placement above is the *Clk Out* signal, which is far from *Block b*; this choice of design is made to reduce the number of decoupling capacitors in the module. The fact that simply placing buffers to resolve any irregularities in the signal propagation overcomes the placement of any unnecessary capacitive circuit behavior. Also, it must be noted that the clock ports are wider than other signal ports, this is done because it is necessary to reduce the resitance to the clock as much as possible as everything depends on the clock. Then, finally, this area is blocked to make sure that no logical cells are placed in this part of the core. After the area is blocked, this floorplan is ready for placement and routing. 
+
+
+### **[+] Steps to run floorplan using OpenLANE**
+<p align="center">
+
+```
+[Quick Review] In the last lab, we completed the design preparation step and design synthesis step. We used the following commands to do so.
+
+1. We started out docker environment with: docker
+2. We started OpenLANE flow with: ./flow.tcl -interactive
+3. We initialized our environment with: package require openlane 0.9
+4. We prepared out design with: prep -design picorv32a
+5. We synthesized the design with: run_synthesis
+```
+</p>
+
+In today's lab, we are going to run the steps to do floorplanning in OpenLANE. To do that, we will continue after we ran the synthesis for the **picorv32a** module.
+
+The command to run the floorplanning is simple, just like the syntheis, and you can run this step using the following statement.
+```
+run_floorplan
+```
+However, before we do that, it is necessary to understand the different switches that are passed to this command that will change the behavior of the underlying scripts. All of these switches can be studied [**here**](https://openlane.readthedocs.io/en/latest/reference/configuration.html#floorplanning). As mentioned [**here**](https://openlane.readthedocs.io/en/latest/usage/hardening_macros.html#floorplan), it is possible to run the floorplanning in one of the three ways, which can be differentiated based on automatic or manual selection of area. 
+
+These switches can be modified in the files located in the **configuration** folder within openlane directory as shown in the [**OpenLANE configuration directory**](https://github.com/The-OpenROAD-Project/OpenLane/tree/master/configuration) and in the image below.
+<p align="center">
+    <img width=400 src="./day2/sk1/run_floorplan.jpg">
+</p>
+
+The switches for the step can be set in one of the three files and the precedence is set according to the order below.
+1. Technology configuration file ([sky130A_sky130_fd_sc_hd_config.tcl](https://github.com/The-OpenROAD-Project/actions-test/blob/main/sky130A_sky130_fd_sc_hd_config.tcl))
+2. Design configuration file ([config.json](https://github.com/The-OpenROAD-Project/OpenLane/blob/master/designs/picorv32a/config.json))  [*note: the new version of the OpenLANE flow uses **config.json** whereas the older version used [config.tcl](https://github.com/The-OpenROAD-Project/actions-test/blob/main/config.tcl)*]
+3. OpenLANE default configuration file ([floorplan.tcl](https://github.com/The-OpenROAD-Project/OpenLane/blob/master/configuration/floorplan.tcl))
+
+*[NOTE: the files shown in the links are just examples, to actually set the value you will have to change the parameters in the current design directory of **your** project]*
+
+For the current run, we are setting the values to the default as they are in those files. Running the command, we get the following output (left). It will shortly end and should end with a successful message (right) 
+<p float="left">
+    <img width=500 src="./day2/sk1/run_floorplan2.jpg">
+    <img width=500 src="./day2/sk1/run_floorplan3.jpg">
+</p>
+
+After this step, the floorplanning is completed and it can be opened with **magic** to see the result and analyze the effect of the parameters that were set in the initial configuration files.
+```
+Command syntax: magic -T <path-to-sky130A.tech> lef read <path-to-merged.lef> def read <path-to-picorv32.floorplan.def>
+
+Command: magic -T ~/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.floorplan.def &
+```
+<img src="./day2/sk1/run_floorplan4.jpg">
+
+This will open up magic with the result of the floorplan as shown below (left). We can play around with the view to see the pad placement and the cells placed in the design (right).
+
+<p align="center">
+    <img width=500 src="./day2/sk1/run_floorplan_magic.jpg">
+    <img width=500 src="./day2/sk1/run_floorplan_magic2.jpg">
+</p>
+
+With this, we are done with the floorplanning step. 
