@@ -288,7 +288,7 @@ The following variables are used in GUNA to do timing characterization. The cuve
     <img  height= 250 width=250 src="./day2/sk4/timing_graph2.jpg">
 </p>
 
-<p >
+<p>
 <table align="center">
 <tr><th> <p align="center"> Output Waveform </p></th><th> <p align="center">  Input Waveform </p></th></tr>
 <tr><td>
@@ -315,7 +315,9 @@ Delays are calculated, for example, in the input side by taking the 50% values f
 
 
 ### **[L2] Propagation delay and transition time**
+
 As stated earlier, the delay can be calculated using the following formula.
+
 
 $$ delay = time(out\_*\_thr) - time(in\_*\_thr) $$
 
