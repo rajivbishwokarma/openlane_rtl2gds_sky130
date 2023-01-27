@@ -13,7 +13,7 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 |     | SK3    |       |[Using OpenLANE for synthesizing sample Pico-RISC-V module]()        |         |
 | 2   |        |       |[Good floorplan vs bad floorplan and introduction to library cells](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#day-2-good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells)        |   :construction:      |
 |     | SK1    |       | [Chip floor planning considerations](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#sk1-power-planning-and-floor-planning)        |    :100:     |
-|     |        |  L1   | [Utilization Ratio and Aspect Ratio](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-utilization-factor-and-aspect-ratio) |         |
+|     |        |  L1   | [Utilization Ratio and Aspect Ratio](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-utilization-factor-and-aspect-ratio) |   :100: |
 |     |        |  L2   | [Pre-placed cells](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-pre-placed-cells) |  :100:  |
 |     |        |  L3   | [Decoupling capacitors](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-decoupling-capacitors) | :100:   |
 |     |        |  L4   | [Power Planning](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-power-planning) | :100:   |
@@ -156,4 +156,27 @@ With this, we are done with the floorplanning step.
 ---
 
 
-# **SK2: Library Binding and Placement**
+## **SK2: Library Binding and Placement**
+### **[L1] Netlist binding and initial place design**
+Before a placement of the logical blocks in the physical core can be done, each components in the design module needs to have an equivalent standard cell. The process of assigning each logial block (think NOT, AND, OR, ...) an equivalent physical standard cell (from the given technology, Sky130, for example) is called netlist binding. These equivalent standard cells are then placed in the core so that each design is as close to other connected module and input/output pads. In the following images, this process can be visually inspected from the initial netlist (1) to the final placement (4). 
+
+<p align="center">
+    <img width=600 src="./day2/sk2/l1_netlist_binding.jpg">
+</p>
+
+### **[L2] Optimize placement using estimated wire-length and capacitance**
+If you noticed, we did not place all the logic blocks in the core in [SK2-L1] i.e., last two blocks from the netlist. This is because we need to optimize how these modules are placed in the core to properly maintain the signal integrity between the sender and receiver blocks. The issue of signal integrity comes into play becasue of the distance between two connecting modules. In case of the third module (green), there is a pre-placed cell between the input and ouptut, and therefore, we have to adjust the placement accordingly. In case of the second module (yellow), there is still significant distance between the input (Din2) and the first receiver (FF1), and with such kind of distance, we cannot gurantee the maintainence of the signal. Therefore, we estimate the wire length and capacitance of the wire and place buffers (as repeaters) between these two components so as to keep the signals intact. This can be seen in the figure below. However, adding additional logic of course increases the delay of the signal. How does this delay affect the overall timing? We will see this in a later timing analysis.
+
+<p align="center">
+    <img width=600 src="./day2/sk2/l1_netlist_binding2.jpg">
+</p>
+
+### **[L3] Final placement optimization**
+Now, the routing of modules 3 and 4 (blue and green blocks) present another set of obstacles in the physical design of this module. You can see from the image above that we had to place each components of the same module fairly separate from each other. We have done this so that we can properly route all the modules. In the images below, we can see how both the third (left) and fourh (right) modules are routed using buffers (or routers) in between the logic blocks. Again, this is done by estimating the wire length and chapacitance of the wire when the distance is too large. This estimation is done using slew (or transition) analysis.
+
+:interrobang: [Question] Why did we not follow the same routing principle that we followed for the second module (yellow). We could have placed all the logic components for modules 3 and 4 together and then placed buffers all the way from the input to the first flip-flop. The number of buffers in both cases should be the same.
+
+<p align="left">
+    <img width=400 src="./day2/sk2/l1_netlist_binding3.jpg">
+    <img width=400 src="./day2/sk2/l1_netlist_binding4.jpg">
+</ p>
