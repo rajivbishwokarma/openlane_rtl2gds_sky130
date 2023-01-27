@@ -395,15 +395,66 @@ Netlist creation for a simple inverter circuit with following specification (val
         .end
 </p> </p>
 
-Running simulation with ngspice with two sets of parameters as shown below will result in the graphs below. 
+### **L2: SPICE Simulation lab for CMOS inverter**
+Running simulation with ngspice with two sets of parameters as shown below will result in the graphs below.
+
 :pushpin: [ Need to fix rendering of the table]
+
 | Spec 1| Spec 2|
 |:----:|:-----:
 | $  W_n=0.375 \ W_p=0.375u \ L_{n,p}=0.25u $  | $$  W_n= 0.375 \ W_p=0.9375u \ L_{n,p}=0.25u $$ |
-| $$  \frac{W_n}{L_n} = \frac{W_p}{L_p} = 1.5 $$ | $$  \frac{W_n}{L_n} = \frac{W_p}{L_p} = 2.5 $$ |
+| $$  \frac{W_n}{L_n} = \frac{W_p}{L_p} = 1.5 $$ | $$  \frac{W_n}{L_n} = \frac{W_p}{L_p} =3.75 $$ |
 
 
 <p align="center">
 <img width=350 src="./day3/sk1/l1_cmos_inverter3.jpg">
 <img width=350 src="./day3/sk1/l1_cmos_inverter4.jpg">
+</p>
+
+### **L3: Switching Threshold $V_m$**
+Switching threhold is a point at which the device switches. To find this, we draw a 45 degree line that intersects the characteristic curve of the inverter as shown in figure below.
+
+<img src="./day3/sk1/l3_cmos_inverter.jpg">
+
+From visual inspection, it can be seen that the threshold values for the given waveforms are approximately around 0.98V for Spec-1 and 1.2 for Spec-2.
+
+### **L4: Static and dynamic simulation of CMOS inverter **
+Dynamic simulation is done in the same way as we did the static simulation in the previous section. The only difference is that, here, we provide a pulse as an external stimulus. We do this by using the following command in the SPICE circuit. 
+
+In the previous netlist, we had: **Vin in  0 2.5** as the input stimulus. We replace that with the following power source input.
+
+```
+Vin in 0 0 pulse 0 2.5 0 10p 10p 1n 2n
+```
+And, then we replace **.dc Vin 0 2.5 0.05** with the transient simulation command.
+
+```
+.tran 10p 4n 
+```
+
+So, the complete model becomes. 
+```
+*** MODEL Description ***
+*** NETLIST Description ***
+M1 out in vdd vdd pmos W=0.375u L=0.25u
+M2 out in  0   0  nmos W=0.375u L=0.25u
+
+cload out 0 10f
+
+Vdd vdd 0 2.5
+Vin in 0 0 pulse 0 2.5 0 10p 10p 1n 2n
+
+*** Simulation Commands ***
+.op
+.tran 10p 4n 
+
+*** include model files ***
+.LIB "tsmc_025um_model.mod" CMOS_MODELS
+.end
+```
+
+Simulating the above model in **ngspice** results in the following waveform. 
+
+<p align="center">
+    <img width= 600 src="./day3/sk1/l4_cmos_inverter.jpg">
 </p>
