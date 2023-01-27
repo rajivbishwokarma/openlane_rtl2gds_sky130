@@ -31,7 +31,7 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 |     |        |  L2   | [Circuit design step](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |   :100:      |
 |     |        |  L3   | [Layout design step](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:      |
 |     |        |  L4   | [Typical characterization flow](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:       |
-|     | SK4    |       | [General timing characterization parameters](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#)        |      |
+|     | SK4    |       | [General timing characterization parameters](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#)        |  :100:    |
 |     |        |  L1   | [Timing threshold definition](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |   :100:     |
 |     |        |  L2   | [Propagation delay and transition time](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:     |
 | 3   |        |       | [Design library cell using Magic Layout and ngspice characterization]() | :construction:  |
@@ -315,11 +315,14 @@ Delays are calculated, for example, in the input side by taking the 50% values f
 
 
 ### **[L2] Propagation delay and transition time**
-As stated earlier, the delay can be calculated using the following formula. 
+As stated earlier, the delay can be calculated using the following formula.
+
 $$ delay = time(out\_*\_thr) - time(in\_*\_thr) $$
 
 Similarly, transition time for a rising waveform can be calculated as, 
+
 $$ transition\ time_{rising} = time(slew\_high_rise\_thr) - time(slew\_low\_rise\_thr) $$
 
 And, transition time for a falling waveform can be calcualted as,
+
 $$ transition\ time_{falling} = time(slew\_high_fall\_thr) - time(slew\_low\_fall\_thr) $$
