@@ -35,7 +35,6 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 |     |        |  L1   | [Timing threshold definition](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |   :100:     |
 |     |        |  L2   | [Propagation delay and transition time](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:     |
 | 3   |        |       | [Design library cell using Magic Layout and ngspice characterization]() | :construction:  |
-
 | 4   |        |       | [Pre-layout timing analysis and importance of good clock tree]()      | :pushpin: |
 | 5   |        |       | [Final steps for RTL2GDS using tritonRoute and openSTA]()             | :pushpin: |
 
