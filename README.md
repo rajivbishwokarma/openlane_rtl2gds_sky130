@@ -271,3 +271,40 @@ The characterization is the extraction of timing, power, and parasitics informat
 * Noise data
 * Power data
 * Function data
+
+## **SK4: General timing characterization parameters**
+
+### **L1 Timing threshold definition**
+
+The following variables are used in GUNA to do timing characterization. The cuve column represents the color of the plot shown in the following graph. The graph is associated with a buffer (two inverts placed in a cascade) and for the first plot the blue waveform is the input to the second inverter while the red waveform is the output from the buffer (or output from the second inverter). For the middle plot, the red waveform is the input stimulus to the first inverter and the blue waveform is the output from the first inverter (see how similar two output waveforms in both plots are). The last plot also represents the input and output for the first ineverter, the only difference is that the stimulus is transitioning from high to low in this case.
+
+<p align="center">
+    <img  height= 350 width=400 src="./day2/sk4/timing_graph.jpg">
+    <img  height= 350 width=400 src="./day2/sk4/timing_graph1.jpg">
+    <img  height= 350 width=400 src="./day2/sk4/timing_graph2.jpg">
+</p>
+
+<p >
+<table align="center">
+<tr><th> <p align="center"> Output Waveform </p></th><th> <p align="center">  Input Waveform </p></th></tr>
+<tr><td>
+
+|Timing threshold variables| Curve (Plot-1) | Definition|
+|:--------------------| :----|:-----|
+|    slew_low_rise_thr  | Red| Slew rate (solpe) near to zero (typically 20% to 30% of low power supply) |
+|    slew_high_rise_thr | Red | Slew rate near to high voltage (typically 20% of high power supply)  |
+|    slew_low_fall_thr  | Blue| Slew rate near to low voltage power supply |
+|    slew_high_fall_thr | Blue| Slew rate near to high voltage power supply  |
+</td><td>
+
+|Timing threshold variables| Curve (Plot-2-3) | Definition|
+|:--------------------| :----|:-----|
+|    in_rise_thr      | RED (Plot 2)  | 50% value of the input waveform  |
+|    in_fall_thr      | RED (Plot 3)  |                                  |
+|    out_rise_thr     | BLUE (Plot 2) | 50% value of the input waveform  |
+|    out_fall_thr     | BLUE (Plot 3) |                                  |
+
+</td></tr> </table>
+</p>
+
+### **L2 Propagation delay and transition time**
