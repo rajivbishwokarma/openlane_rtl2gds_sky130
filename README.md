@@ -279,9 +279,9 @@ The characterization is the extraction of timing, power, and parasitics informat
 The following variables are used in GUNA to do timing characterization. The cuve column represents the color of the plot shown in the following graph. The graph is associated with a buffer (two inverts placed in a cascade) and for the first plot the blue waveform is the input to the second inverter while the red waveform is the output from the buffer (or output from the second inverter). For the middle plot, the red waveform is the input stimulus to the first inverter and the blue waveform is the output from the first inverter (see how similar two output waveforms in both plots are). The last plot also represents the input and output for the first ineverter, the only difference is that the stimulus is transitioning from high to low in this case.
 
 <p align="center">
-    <img  height= 350 width=400 src="./day2/sk4/timing_graph.jpg">
-    <img  height= 350 width=400 src="./day2/sk4/timing_graph1.jpg">
-    <img  height= 350 width=400 src="./day2/sk4/timing_graph2.jpg">
+    <img  height= 250 width=300 src="./day2/sk4/timing_graph.jpg">
+    <img  height= 250 width=300 src="./day2/sk4/timing_graph1.jpg">
+    <img  height= 250 width=300 src="./day2/sk4/timing_graph2.jpg">
 </p>
 
 <p >
