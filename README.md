@@ -396,6 +396,7 @@ Netlist creation for a simple inverter circuit with following specification (val
 </p> </p>
 
 Running simulation with ngspice with two sets of parameters as shown below will result in the graphs below. 
+:pushpin: [ Need to fix rendering of the table]
 | Spec 1| Spec 2|
 |:----:|:-----:
 | $  W_n=0.375 \ W_p=0.375u \ L_{n,p}=0.25u $  | $$  W_n= 0.375 \ W_p=0.9375u \ L_{n,p}=0.25u $$ |
