@@ -12,7 +12,7 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 |     | SK2    |       |[Simplified and detailed RTL2GDS flow using OpenLANE]()              |         |
 |     | SK3    |       |[Using OpenLANE for synthesizing sample Pico-RISC-V module]()        |         |
 | 2   |        |       |[Good floorplan vs bad floorplan and introduction to library cells](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#day-2-good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells)        |   :construction:      |
-|     | SK1    |       |[Chip floor planning considerations]()        |    :100:     |
+|     | SK1    |       |[Chip floor planning considerations](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#sk1-power-planning-and-floor-planning)        |    :100:     |
 |     |        |  L1   | [Utilization Ratio and Aspect Ratio](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-utilization-factor-and-aspect-ratio) |         |
 |     |        |  L2   | [Pre-placed cells](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-pre-placed-cells) |         |
 |     |        |  L3   | [Decoupling capacitors](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-decoupling-capacitors) |         |
@@ -138,8 +138,8 @@ Command: magic -T ~/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.te
 This will open up magic with the result of the floorplan as shown below (left). We can play around with the view to see the pad placement and the cells placed in the design (right).
 
 <p align="center">
-    <img width=500 src="./day2/sk1/run_floorplan_magic.jpg">
-    <img width=500 src="./day2/sk1/run_floorplan_magic2.jpg">
+    <img width=400 src="./day2/sk1/run_floorplan_magic.jpg">
+    <img width=400 src="./day2/sk1/run_floorplan_magic2.jpg">
 </p>
 
 With this, we are done with the floorplanning step. 
