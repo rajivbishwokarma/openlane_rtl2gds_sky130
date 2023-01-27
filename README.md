@@ -327,3 +327,14 @@ $$ transition\ time_{rising} = time(slew\_ high\_ rise\_ thr) - time(slew\_ low\
 And, transition time for a falling waveform can be calcualted as,
 
 $$ transition\ time_{falling} = time(slew\_high\_fall\_thr) - time(slew\_low\_fall\_thr) $$
+
+
+.
+
+.
+
+.
+
+.
+
+# <p align="center"> **Day-3: Design library cell using Magic Layout and ngspice characterization** </p>
