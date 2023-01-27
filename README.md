@@ -123,8 +123,8 @@ The switches for the step can be set in one of the three files and the precedenc
 
 For the current run, we are setting the values to the default as they are in those files. Running the command, we get the following output (left). It will shortly end and should end with a successful message (right) 
 <p float="left">
-    <img width=500 src="./day2/sk1/run_floorplan2.jpg">
-    <img width=500 src="./day2/sk1/run_floorplan3.jpg">
+    <img width=400 src="./day2/sk1/run_floorplan2.jpg">
+    <img width=400 src="./day2/sk1/run_floorplan3.jpg">
 </p>
 
 After this step, the floorplanning is completed and it can be opened with **magic** to see the result and analyze the effect of the parameters that were set in the initial configuration files.
