@@ -21,12 +21,12 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 |     |        |  L6   | [Steps to run floorplan using OpenLANE](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:  |
 |     |        |  L7   | [Review floorplan files and steps to view floorplan](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) | :100:   |
 |     |        |  L8   | [Review floorplan layout in Magic](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:  |
-|     | SK2    |       | [Library Binding and Placement](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#sk2-library-binding-and-placement)        |    :construction:     |
-|     |        |  L1   | [Netlist binding and initial place design](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |         |
-|     |        |  L2   | [Optimize placement using estimated wire-length and capacitance](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |         |
-|     |        |  L3   | [Final placement optimization](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |         |
-|     |        |  L4   | [Need for libraries and characterization](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |         |
-|     |        |  L5   | [Congestion aware placement using RePlAce](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |         |
+|     | SK2    |       | [Library Binding and Placement](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#sk2-library-binding-and-placement)        |    :100:     |
+|     |        |  L1   | [Netlist binding and initial place design](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:       |
+|     |        |  L2   | [Optimize placement using estimated wire-length and capacitance](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |   :100:      |
+|     |        |  L3   | [Final placement optimization](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:       |
+|     |        |  L4   | [Need for libraries and characterization](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:       |
+|     |        |  L5   | [Congestion aware placement using RePlAce](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:       |
 | 3   |        |       | [Design library cell using Magic Layout and ngspice characterization]() |         |
 | 4   |        |       | [Pre-layout timing analysis and importance of good clock tree]()      |         |
 | 5   |        |       | [Final steps for RTL2GDS using tritonRoute and openSTA]()             |         |
@@ -174,9 +174,44 @@ If you noticed, we did not place all the logic blocks in the core in [SK2-L1] i.
 ### **[L3] Final placement optimization**
 Now, the routing of modules 3 and 4 (blue and green blocks) present another set of obstacles in the physical design of this module. You can see from the image above that we had to place each components of the same module fairly separate from each other. We have done this so that we can properly route all the modules. In the images below, we can see how both the third (left) and fourh (right) modules are routed using buffers (or routers) in between the logic blocks. Again, this is done by estimating the wire length and chapacitance of the wire when the distance is too large. This estimation is done using slew (or transition) analysis.
 
-:interrobang: [Question] Why did we not follow the same routing principle that we followed for the second module (yellow). We could have placed all the logic components for modules 3 and 4 together and then placed buffers all the way from the input to the first flip-flop. The number of buffers in both cases should be the same.
+:interrobang: [Question] Why did we not follow the same routing principle that we followed for the second module (yellow) [[abutment](https://www.synopsys.com/glossary/what-is-custom-ic.html)]. We could have placed all the logic components for modules 3 and 4 together and then placed buffers all the way from the input to the first flip-flop. The number of buffers in both cases should be the same.
 
 <p align="left">
     <img width=400 src="./day2/sk2/l1_netlist_binding3.jpg">
     <img width=400 src="./day2/sk2/l1_netlist_binding4.jpg">
 </ p>
+
+### **[L4] Need for libraries and characterization**
+Everything in the real world is analog and we are using digital design to create analog components. Along the way, we need analog models of the components that we are designing so that we know they will function in the real world. That is, we need analog power and speed characteristics of all the gates (NOT, NAND, NOR, ..) and logic modules (memories) we are using and this is standard cell and library characterization [[Source](https://www.synopsys.com/glossary/what-is-library-characterization.html)]. And, this is a must for any efficient design flow.
+
+
+### **[L5] Congestion aware placement using RePlAce**
+:triangular_flag_on_post: [Note: as of January 26, 2023 the [RePlAce repo](https://github.com/The-OpenROAD-Project/RePlAce) has been archieved in November 8, 2022].
+
+Now we will carry out the physical placement of the standard cells using the RePlAce (Advancing Solution Quality and Routability Validation in Global Placement) tool in OpenLANE. In OpenLANE, placement occurs in two stages: global and detailed. Global placement is a coarse (approximate) placement and the detailed placement is a legal (abutment and no overlap) way of placing for the timing. We can run the placement using the following command. 
+
+```
+run_placement
+```
+
+When we do this, the placement process starts and this can be seen in the following screenshots of the output window.
+<p align="left">
+    <img width=400 src="./day2/sk2/run_placement.jpg">
+    <img width=400 src="./day2/sk2/run_placement2.jpg">
+</p>
+
+We can go ahead and view this implemented placement using **magic**. To do this, we use a similar command to that of the floorplanning. The implemented design is available under **placement** directory inside the **result** folder. Therefore, **cd** into the **placement** folder and run the following command. If you notice carefully, this time we are using **picorv32a.placement.def** instead of the *picorv32a.floorplan.def* file that we previously used.
+
+```
+Command: magic -T ~/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def &
+```
+<img src="./day2/sk2/run_placement3.jpg">
+
+Zooming into one of the regions, we see that the standard cells are placed and arranged properly in the slots. 
+
+<p align="left">
+    <img width=400 src="./day2/sk2/run_placement4.jpg">
+    <img width=400 src="./day2/sk2/run_placement5.jpg">
+</p>
+
+This concludes the placement step in OpenLANE flow.
