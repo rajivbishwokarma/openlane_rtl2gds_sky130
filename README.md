@@ -3,7 +3,6 @@
 # <p align="center"> Introduction </p>
 ASIC design is an involved process. In the distant past (few decades ago), ASIC designers were people who designed powerful processors (think Intel 8080 microprocessor) using "[rubylith](https://en.wikipedia.org/wiki/Rubylith), light boards, rulers, electric erasers, and a [digitizer](https://en.wikipedia.org/wiki/Digitization)" [[1]](https://en.wikipedia.org/wiki/Intel_8086). Soon people began realizing how useful these tiny things called processors were in making their lives better and within a year (1974), MITS released their legendary [Altair 8800](https://en.wikipedia.org/wiki/Altair_8800) microcomputer. And, thus, the fascinating story of how humanity's search to automatically add decimal numbers (in 1812 by Charle's Babbage) [3] took a much-needed turn into the right direction, which was to make that technology available to everyday people. This led people to start thinking of new ways to design these pretty tiny but huge pieces of silicon. And that is everyone was rushing to design Electronic Design Automation (EDA) tools and make money out of them. Quickly, within a span of few years, companies started designing tools to design Very Large Integrated Circuits (VLIC) very quickly. And, thus, the very end of 1900s started the very beginning of new technological era, an era that would create the most technological acceleration than what humans had achieved throughout their entire existence. Somewhere in this acceleration, companies that specialized in these EDA tools and chip fabrication were becoming giants providing services to other companies, yet still out of reach of the everyday people. In few decades of their existence, these companies had created proprietary technologies that allowed them to share the whole IC design and fabrication market share between themselves (huge investments lead to huge gains). Then came the open-source revolution for software and hardware. In this open-source revolution, people started contributing to projects that are available in public (including the source and designs) so that everybody could collectively work on it and further the given project (think Linux). Then came the [OpenROAD project](https://openroad.readthedocs.io/en/latest/) in 2018 and with the release of the [Skywater 130nm PDK](https://github.com/google/skywater-pdk), the momentum of open-source IC design is gradually shifting towards the everyday people and that is why we are here, to get started in the path to learning these open-source EDA tools and PDKs.
 
-
 # <p align="center"> Table of Contents </p>
 | Day | Module |Part|                          Topic                                       | Status  |
 |:---|:------|:------|:--------------------------------------------------------------------|:-------:|
@@ -13,7 +12,7 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 |     | SK3    |       |[Using OpenLANE for synthesizing sample Pico-RISC-V module]()        |         |
 | 2   |        |       |[Good floorplan vs bad floorplan and introduction to library cells](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#day-2-good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells)        |   :construction:      |
 |     | SK1    |       | [Chip floor planning considerations](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#sk1-power-planning-and-floor-planning)        |    :100:     |
-|     |        |  L1   | [Utilization Ratio and Aspect Ratio](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-utilization-factor-and-aspect-ratio) |   :100: |
+|     |        |  L1   | [Utilization Factor and Aspect Ratio](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-utilization-factor-and-aspect-ratio) |   :100: |
 |     |        |  L2   | [Pre-placed cells](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-pre-placed-cells) |  :100:  |
 |     |        |  L3   | [Decoupling capacitors](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-decoupling-capacitors) | :100:   |
 |     |        |  L4   | [Power Planning](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-power-planning) | :100:   |
@@ -27,6 +26,14 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 |     |        |  L3   | [Final placement optimization](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:       |
 |     |        |  L4   | [Need for libraries and characterization](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:       |
 |     |        |L5-LAB | [Congestion aware placement using RePlAce](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:       |
+|     | SK3    |       | [Cell design and characterization flows](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#)        |   :100:     |
+|     |        |  L1   | [Inputs for cell design flow](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:       |
+|     |        |  L2   | [Circuit design step](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |   :100:      |
+|     |        |  L3   | [Layout design step](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:      |
+|     |        |  L4   | [Typical characterization flow](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:       |
+|     | SK4    |       | [General timing characterization parameters](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#)        |      |
+|     |        |  L1   | [Timing threshold definition](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |        |
+|     |        |  L2   | [Propagation delay and transition time](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |       |
 | 3   |        |       | [Design library cell using Magic Layout and ngspice characterization]() | :pushpin:  |
 | 4   |        |       | [Pre-layout timing analysis and importance of good clock tree]()      | :pushpin: |
 | 5   |        |       | [Final steps for RTL2GDS using tritonRoute and openSTA]()             | :pushpin: |
@@ -215,3 +222,52 @@ Zooming into one of the regions, we see that the standard cells are placed and a
 </p>
 
 This concludes the placement step in OpenLANE flow.
+
+## **SK3: Cell design and characterization flows**
+A cell design flow consists three main steps:
++ Inputs
++ Design Steps
++ Outputs
+
+
+### **[L1] Inputs for cell design flow**
+A typical standard cell for, say, an inverter has to go through a cell design flow before it can be used to design an IC. This design flow consists of using analog characteristic analysis of the cell using SPICE simulation, DRC, and LVS. Every single standard cell in a library, which can contain multiple variation of the same standard cell with different drive strength and/or different size, has to go through this process. The parameters that are used for the simulation are provided by the foundries and a collection of all these components used to create standard cells is called a **Process Design Kit (PDK)**.
+
+Specifically, inputs for a cell design flow can be listed as: 
+* Process Design Kits (PDKs):
+  * Design Rule Check (DRC)
+  * Layout vs Simulation (LVS)
+  * SPICE models
+  * Library 
+  * User-defined specs
+    * Cell height
+    * Supply voltage
+    * Metal layer placements
+    * Drawn gate-length
+
+### **[L2] Circuit design step**
+Design involves the use of the cells obtained as the inputs. The circuit design step involves the designing of the circuit using nMOS, pMOS transistors so that they meet the minimum requirements asked by the foundries. Function implementation, transistor sizing, saturation characterization and voltage calculation are some of the steps of circuit design. The output of this step is called Circuit Description Language (CDL).
+
+### **[L3] Layout design step**
+From the implemented circuit, pMOS network graph and nMOS network graph are extracted and the Euler's path is obtained. Now, Euler's path is used to design the stick diagram, which is a literal representation of the physical layout that will be laid out as the result of all of this flow. This stick diagram must adhere to the design rules given by the foundry. The output of this step will be the following. 
+* GDSII: It contains the layout file
+* LEF: It defines the width and height of the cell
+* Extracted SPICE netlist (.cir): It contains all the parasitics i.e., resistance and mainly capacitances of all the elements in the circuit.
+
+### **[L4] Typical characterization flow**
+Following steps can be typically followed to carry out a characterization flow. 
+1. Read the NMOS and PMOS models provided by the foundry. 
+2. Read the extracted SPICE netlist
+3. Define and recognize the behavior of the cell
+4. Read the sub-circuit of the required module
+5. Attach the necessary power sources. 
+6. Apply the stimulus to the module. 
+7. Provide the necessary output capacitance (by varying in a range).
+8. Provide the necessary simulation commands (**.tran** for transient simulation, **.dc** for DC simulation)
+9. Feed all the data from step 1 to step 8 as a configuration file to [GUNA](https://www.paripath.com/Products/Guna).
+
+The characterization is the extraction of timing, power, and parasitics information of the given design. The output from this steps are given below. The outputs are **.lib** files with following information.
+* Timing data
+* Noise data
+* Power data
+* Function data
