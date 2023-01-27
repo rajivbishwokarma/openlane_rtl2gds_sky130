@@ -10,7 +10,7 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 |     | SK1    |       |[Introduction to RISC-V, QFN-48, Physical chip layout]()             |         |
 |     | SK2    |       |[Simplified and detailed RTL2GDS flow using OpenLANE]()              |         |
 |     | SK3    |       |[Using OpenLANE for synthesizing sample Pico-RISC-V module]()        |         |
-| 2   |        |       |[Good floorplan vs bad floorplan and introduction to library cells](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#day-2-good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells)        |   :construction:      |
+| 2   |        |       |[Good floorplan vs bad floorplan and introduction to library cells](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#day-2-good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells)        |   :100:      |
 |     | SK1    |       | [Chip floor planning considerations](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#sk1-power-planning-and-floor-planning)        |    :100:     |
 |     |        |  L1   | [Utilization Factor and Aspect Ratio](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-utilization-factor-and-aspect-ratio) |   :100: |
 |     |        |  L2   | [Pre-placed cells](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-pre-placed-cells) |  :100:  |
@@ -32,9 +32,9 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 |     |        |  L3   | [Layout design step](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:      |
 |     |        |  L4   | [Typical characterization flow](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:       |
 |     | SK4    |       | [General timing characterization parameters](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#)        |      |
-|     |        |  L1   | [Timing threshold definition](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |        |
-|     |        |  L2   | [Propagation delay and transition time](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |       |
-| 3   |        |       | [Design library cell using Magic Layout and ngspice characterization]() | :pushpin:  |
+|     |        |  L1   | [Timing threshold definition](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |   :100:     |
+|     |        |  L2   | [Propagation delay and transition time](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:     |
+| 3   |        |       | [Design library cell using Magic Layout and ngspice characterization]() | :construction:  |
 | 4   |        |       | [Pre-layout timing analysis and importance of good clock tree]()      | :pushpin: |
 | 5   |        |       | [Final steps for RTL2GDS using tritonRoute and openSTA]()             | :pushpin: |
 
