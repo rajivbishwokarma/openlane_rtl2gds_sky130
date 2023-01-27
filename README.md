@@ -35,6 +35,7 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 |     |        |  L1   | [Timing threshold definition](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |   :100:     |
 |     |        |  L2   | [Propagation delay and transition time](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:     |
 | 3   |        |       | [Design library cell using Magic Layout and ngspice characterization]() | :construction:  |
+
 | 4   |        |       | [Pre-layout timing analysis and importance of good clock tree]()      | :pushpin: |
 | 5   |        |       | [Final steps for RTL2GDS using tritonRoute and openSTA]()             | :pushpin: |
 
@@ -338,3 +339,70 @@ $$ transition\ time_{falling} = time(slew\_high\_fall\_thr) - time(slew\_low\_fa
 .
 
 # <p align="center"> **Day-3: Design library cell using Magic Layout and ngspice characterization** </p>
+## SK1: Labs for CMOS inverter ngspice simulation
+### L0: **IO placer revision**
+Previously, we ran a floorplanning step with a value of '1' to the **FP_IO_MODE** flag within **floorplan.tcl** file inside the configuration directory. The result was a placement of equidistant pin-pads in the core. Now, we re-run the same step with a value of '2' set to the flag. The result we expect is not equidistant but an overlap in the pad placement. 
+
+To change the value and rerun, we run the following commands inside the OpenLANE environment. 
+```
+set ::env(FP_IO_MODE) 2
+run_floorplan
+```
+<p align="center">
+    <img width=600 src="./day3/sk1/fp_mode_1.jpg">
+</p>
+
+Then, after the floorplan is completed, we can open the result using the same magic command that we previously used. Make sure to **cd** into the appropriate result directory. 
+
+```
+magic -T ~/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read merged_unpadded.lef def read picorv32a.floorplan.def & 
+```
+In the images below (left), we can already see how the change has occured. Notice how all the pads are placed on the left and right, compared to how they were spread accross all the sides in the previous run. Zooming in (right), it is clear how pads are overlapping with each other in this run.
+
+<p align="center">
+    <img  width=350 src="./day3/sk1/run_floorplan_flag21.jpg">
+    <img  width=350 src="./day3/sk1/run_floorplan_flag2.jpg">
+</p>
+
+
+### **L1: SPICE deck creation for CMOS inverter [VTC]**
+:construction: First step for before running a SPICE simulation is to create a SPICE deck. SPICE deck is a netlist containing all the connectivity information (inputs, tap points). 
+
+Netlist creation for a simple inverter circuit with following specification (values and nodes).
+
+<p align="center">
+    <img  align="left" width=300 src="./day3/sk1/l1_cmos_inverter2.jpg">
+    <p align="right">
+        
+        *** MODEL Description ***
+        *** NETLIST Description ***
+        M1 out in vdd vdd pmos W=0.375u L=0.25u
+        M2 out in  0   0  nmos W=0.375u L=0.25u
+
+        cload out 0 10f
+
+        Vdd vdd 0 2.5
+        Vin in  0 2.5
+
+        *** Simulation Commands ***
+        .op
+
+        *** Sweep Vin from 0 to 0.5 at 0.05 increment ***
+        .dc Vin 0 2.5 0.05
+
+        *** include model files ***
+        .LIB "tsmc_025um_model.mod" CMOS_MODELS
+        .end
+</p> </p>
+
+Running simulation with ngspice with two sets of parameters as shown below will result in the graphs below. 
+| Spec 1| Spec 2|
+|:----:|:-----:
+| $$  W_n=0.375 \ W_p=0.375u \ L_{n,p}=0.25u $$  | $$  W_n= 0.375 \ W_p=0.9375u \ L_{n,p}=0.25u $$ |
+| $$  \frac{W_n}{L_n} = \frac{W_p}{L_p} = 1.5 $$ | $$  \frac{W_n}{L_n} = \frac{W_p}{L_p} = 2.5 $$ |
+
+
+<p align="center">
+<img width=350 src="./day3/sk1/l1_cmos_inverter3.jpg">
+<img width=350 src="./day3/sk1/l1_cmos_inverter4.jpg">
+</p>
