@@ -274,9 +274,13 @@ The characterization is the extraction of timing, power, and parasitics informat
 
 ## **SK4: General timing characterization parameters**
 
-### **L1 Timing threshold definition**
+### **[L1] Timing threshold definition**
 
-The following variables are used in GUNA to do timing characterization. The cuve column represents the color of the plot shown in the following graph. The graph is associated with a buffer (two inverts placed in a cascade) and for the first plot the blue waveform is the input to the second inverter while the red waveform is the output from the buffer (or output from the second inverter). For the middle plot, the red waveform is the input stimulus to the first inverter and the blue waveform is the output from the first inverter (see how similar two output waveforms in both plots are). The last plot also represents the input and output for the first ineverter, the only difference is that the stimulus is transitioning from high to low in this case.
+The following variables are used in GUNA to do timing characterization. The cuve column represents the color of the plot shown in the following graph. The graph is associated with a buffer (two inverts placed in a cascade) as shown in the schematic image below. For the first plot the blue waveform is the input to the second inverter while the red waveform is the output from the buffer (or output from the second inverter). For the middle plot, the red waveform is the input stimulus to the first inverter and the blue waveform is the output from the first inverter (see how similar two output waveforms in both plots are). The last plot also represents the input and output for the first ineverter, the only difference is that the stimulus is transitioning from high to low in this case.
+
+<p align="center">
+    <img width=600 src="./day2/sk4/timing_graph0.jpg">
+</p>
 
 <p align="center">
     <img  height= 250 width=250 src="./day2/sk4/timing_graph.jpg">
@@ -291,20 +295,31 @@ The following variables are used in GUNA to do timing characterization. The cuve
 
 |Timing threshold variables| Curve (Plot-1) | Definition|
 |:--------------------| :----|:-----|
-|    slew_low_rise_thr  | Red| Slew rate (solpe) near to zero (typically 20% to 30% of low power supply) |
-|    slew_high_rise_thr | Red | Slew rate near to high voltage (typically 20% of high power supply)  |
-|    slew_low_fall_thr  | Blue| Slew rate near to low voltage power supply |
-|    slew_high_fall_thr | Blue| Slew rate near to high voltage power supply  |
+|    slew_low_rise_thr  | Red| Slew rate (solpe) near to zero (typically 20% to 30% of VDD) |
+|    slew_high_rise_thr | Red | Slew rate near to high voltage (typically 80% of VDD)  |
+|    slew_low_fall_thr  | Blue| Slew rate near to VSS (20% of VDD) |
+|    slew_high_fall_thr | Blue| Slew rate near to VDD (80% of VDD)  |
 </td><td>
 
 |Timing threshold variables| Curve (Plot-2-3) | Definition|
 |:--------------------| :----|:-----|
 |    in_rise_thr      | RED (Plot 2)  | 50% value of the input waveform  |
-|    in_fall_thr      | RED (Plot 3)  |                                  |
-|    out_rise_thr     | BLUE (Plot 2) | 50% value of the input waveform  |
-|    out_fall_thr     | BLUE (Plot 3) |                                  |
+|    in_fall_thr      | RED (Plot 3)  | 50% value of the input waveform  |
+|    out_rise_thr     | BLUE (Plot 2) | 50% value of the output waveform |
+|    out_fall_thr     | BLUE (Plot 3) | 50% value of the output waveform |
 
 </td></tr> </table>
 </p>
 
-### **L2 Propagation delay and transition time**
+Delays are calculated, for example, in the input side by taking the 50% values from the stimulus and output and subtracting them. This is how GUNA calculates the delays for timing threshold variables.
+
+
+### **[L2] Propagation delay and transition time**
+As stated earlier, the delay can be calculated using the following formula. 
+$$ delay = time(out\_*\_thr) - time(in\_*\_thr) $$
+
+Similarly, transition time for a rising waveform can be calculated as, 
+$$ transition\ time_{rising} = time(slew\_high_rise\_thr) - time(slew\_low\_rise\_thr) $$
+
+And, transition time for a falling waveform can be calcualted as,
+$$ transition\ time_{falling} = time(slew\_high_fall\_thr) - time(slew\_low\_fall\_thr) $$
