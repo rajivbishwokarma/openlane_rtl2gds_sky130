@@ -7,7 +7,7 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 # Table of Contents
 | Day | Module |Part|                          Topic                                       | Status  |
 |:---|:------|:------|:--------------------------------------------------------------------|:-------:|
-| 1   |        |       |[Inception of open-source EDA, OpenLANE, and Sky130 PDK]()           |         |
+| 1   |        |       |[Inception of open-source EDA, OpenLANE, and Sky130 PDK]()           |:pushpin:|
 |     | SK1    |       |[Introduction to RISC-V, QFN-48, Physical chip layout]()             |         |
 |     | SK2    |       |[Simplified and detailed RTL2GDS flow using OpenLANE]()              |         |
 |     | SK3    |       |[Using OpenLANE for synthesizing sample Pico-RISC-V module]()        |         |
@@ -27,9 +27,9 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 |     |        |  L3   | [Final placement optimization](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:       |
 |     |        |  L4   | [Need for libraries and characterization](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:       |
 |     |        |L5-LAB | [Congestion aware placement using RePlAce](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:       |
-| 3   |        |       | [Design library cell using Magic Layout and ngspice characterization]() |         |
-| 4   |        |       | [Pre-layout timing analysis and importance of good clock tree]()      |         |
-| 5   |        |       | [Final steps for RTL2GDS using tritonRoute and openSTA]()             |         |
+| 3   |        |       | [Design library cell using Magic Layout and ngspice characterization]() | :pushpin:  |
+| 4   |        |       | [Pre-layout timing analysis and importance of good clock tree]()      | :pushpin: |
+| 5   |        |       | [Final steps for RTL2GDS using tritonRoute and openSTA]()             | :pushpin: |
 
 # Day 2: Good floorplan vs bad floorplan and introduction to library cells
 ##  **SK1: Power planning and floor planning**
