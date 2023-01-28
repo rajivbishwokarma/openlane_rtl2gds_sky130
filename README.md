@@ -457,3 +457,159 @@ Simulating the above model in **ngspice** results in the following waveform.
 <p align="center">
     <img width= 600 src="./day3/sk1/l4_cmos_inverter.jpg">
 </p>
+
+### **L5: Git clone the VSD standard cell **
+Before we proceed, we need to have a standard cell. But, for this module, we are going to use a pre-designed standard cell from this [GitHub Repo](https://github.com/nickson-jose/vsdstdcelldesign).
+
+Clone the repo into your **openlane** directory. And, you are ready to go.
+<p align="center">
+    <img src="./day3/sk1/git.jpg">
+</p>
+
+## **SK2: Inception of Layout and CMOS fabrication process**
+### L1: Create active regions
+16-mask CMOS process
+ 1. Selecting a substrate 
+    * P-type
+    * High resistivity (5~50 ohms)
+    * Doping level ($10^{15} \ cm^{-3}$)  (less than well-doping)
+    * Orientation (100) 
+
+ 2. Creating active region for transistors
+    * Grow ~40nm of $SiO_{2}$
+    * Deposit ~80nm of $Si_{3}N_{4}$ on top of $SiO_{2}$
+    * Deposit ~1um photoresist 
+    * Create Mask1 on top of photoresist
+    * Wash out using UV
+    * Remove Mask1
+    * Etch off $Si_{3}N_{4}$
+    * Remove photoresist
+    * Place it in an oxidation furnance
+    * Do LOCOS (Local Oxidation of Silicon)
+    * Etch off $Si_{3}N_{4}$ completely using hot phosporic acid
+
+### L2: Formation of N-well and P-well
+
+ 3. N-Well and P-Well formation
+    * Deposit photoresist
+    * Create Mask2
+    * Shine UV light and wash off partial photoresist
+    * Remove the Mask2
+    * Diffuse Boron to create P-well (~200keV)
+    * Repeat the steps for creating N-well using Mask3 and Phosphorous (~400keV)
+    * Diffuse the wells using driving furnance (twin-tops)
+
+### L3: Formation of gate terminal
+
+**Threhold Voltage Equation**
+$$ V_t = V_{t0}  + \gamma (\sqrt{|-2 \phi_{f} + V_{sb}|} - \sqrt{|-2 \phi_f|} ) $$
+where, 
+$$ \gamma = \frac{\sqrt{2qNA \epsilon_{si} }}{C_{ox}} $$
+
+:pushpin: And, the meaning of the symbols are as follows. 
+
+4. Formation of 'gate'
+   * Deposit photoresist and Mask4 on N-well side
+   * Introduce controlled Boron at ~60keV to create nMOS
+   * Repeat the same step to the P-well using Arsenic and create pMOS
+   * Remove the oxide layer using diluted hydrofluric (HF) solution
+   * Re-grow high quality oxide (~10nm thin) 
+   * Deposit ~0.4um polysilicon layer
+   * Add N-type (phosphorous or arsenic) ion implants
+   * Deposit photoresist and Mask6
+   * Etch unnecessary polysilicon
+
+
+### L4: Lightly doped drain (LDD) formation
+ 5. Lighly doped drain (LDD) formation
+    * P+, P-, N profile for pMOS
+    * N+, N-, P profile for nMOS
+    * Hot electron effect
+    * Short channel effect
+
+### **L8: Lab introduction to Sky130 basic layers layout and LEF using inverter**
+We use **magic** to view the standard cell that we cloned from the [GitHub Repo](https://github.com/nickson-jose/vsdstdcelldesign) in the previous lab session. After the cloning is done, we can use magic to see the layout of the inverter. 
+
+After we are in the **openlane** directory We use the following command to do so.\
+```
+magic -T sky130A.tech sky130_inv.mag &
+```
+<p align="center">
+    <img src="./day3/sk2/inverter_magic.jpg">
+</p>
+
+This will show the following window in **magic**.
+<p align="center">
+    <img width=600 src="./day3/sk2/inverter_magic2.jpg">
+</p>
+
+In this window, we can see all the information about the substratees, CMOS gates, contacts and layer coloring information. For example, to see information about a particular section, say, the cross-section between n-diffusion and poly, we can over our cursor over the region and select it. Then by opning the main **magic** window, we can type down **what** command to see the information as can be seen from the screenshots below. 
+
+<p align="left">
+    <img width=150 src="./day3/sk2/inverter_magic3.jpg">
+    <img width=500 src="./day3/sk2/inverter_magic4.jpg">
+</p>
+
+Another command that we can use is press '**s**' thrice after hovering the cursor over a partiular region. This will allow you to see the connection of the region to other regions. For example, in the screenshots bewlow, the 's' was pressed thrice after the cursor was over the contact (left). This selected the complete connection of the contact, then, using **what** in the main window resulted in the message being displayed (right).
+
+<p align="left">
+    <img width=150 src="./day3/sk2/inverter_magic5.jpg">
+    <img width=500 src="./day3/sk2/inverter_magic6.jpg">
+</p>
+
+Another important file type to consider is the **LEF** filetype. These is a logic-less file only containing the metal contacts and boundaries. This file is used by foundries to protect their IPs as only metal contacts and boundires are enough to fabricate the chips.
+
+
+### L9: Lab steps to create std cell layout and extract spice netlist
+:pushpin: For this example, the provided **sky130_inv.mag** is used. Therefore, to open this design, use the following command. 
+```
+magic -T sky130A.tech sky130_inv.mag &
+```
+
+The command to extract the netlist after creating the standard cell in **magic** is given below. 
+```
+extract all
+ext2spice cthresh 0 rthresh 0
+ext2spice
+```
+After these commands are executed, as shown in the figure below.
+<p align="center">
+    <img width=500 src="./day3/sk2/magic_inverter8.jpg">
+</p>
+The following files will be created as shown below.
+```
+sky130_inv.ext
+sky130_inv.spice
+```
+<p align="center">
+    <img width=500 src="./day3/sk2/magic_inverter9.jpg">
+</p>
+
+Inside the SPICE file, following can be found, which basically are the connection information and capacitance information about the internal circuit of the inverter.
+
+```python
+* SPICE3 file created from sky130_inv.ext - technology: sky130A
+
+.option scale=0.01u
+
+.subckt sky130_inv A Y VPWR VGND
+X0 Y A VGND VGND sky130_fd_pr__nfet_01v8 ad=0 pd=0 as=0 ps=0 w=35 l=23
+X1 Y A VPWR VPWR sky130_fd_pr__pfet_01v8 ad=0 pd=0 as=0 ps=0 w=37 l=23
+C0 A VPWR 0.07fF
+C1 A Y 0.05fF
+C2 Y VPWR 0.11fF
+C3 Y VGND 0.24fF
+C4 VPWR VGND 0.59fF
+.ends
+```
+
+## **SK3: Sky130 Tech File Labs**
+### **L1 - Lab steps to create final SPICE desk using Sky130 tech**
+### **L2 - Lab steps to characterize inverter using sky130 model files**
+### **L3 - Lab introduction to Magic tool options and DRC rules**
+### **L4 - Lab introduction to Sky130 pdk's and steps to download labs**
+### **L4 - Lab introduction to Magic and steps to load Sky130 tech-rules**
+### **L6 - Lab exercise to fix poly.9 error in Sky130 tech-file**
+### **L7 - Lab exercise to implement poly resistor spacing to diff and tap**
+### **L8 - Lab challenge exercise to describe DRC error as geometrical construct**
+### **L9 - Lab challenge to find missing or incorrect rules and fix them**
