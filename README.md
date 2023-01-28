@@ -10,6 +10,8 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 
 :construction: - Currently doing 
 
+:100: Completed
+
 :triangular_flag_on_post: - Note
 
 
