@@ -34,8 +34,8 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 |     | SK4    |       | [General timing characterization parameters](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#)        |  :100:    |
 |     |        |  L1   | [Timing threshold definition](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |   :100:     |
 |     |        |  L2   | [Propagation delay and transition time](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:     |
-| 3   |        |       | [Design library cell using Magic Layout and ngspice characterization]() | :construction:  |
-| 4   |        |       | [Pre-layout timing analysis and importance of good clock tree]()      | :pushpin: |
+| 3   |        |       | [Design library cell using Magic Layout and ngspice characterization](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-day-3-design-library-cell-using-magic-layout-and-ngspice-characterization-) | :construction:  |
+| 4   |        |       | [Pre-layout timing analysis and importance of good clock tree](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-day-4-pre-layout-timing-analysis-and-importance-of-good-clock-tree-)      | :pushpin: |
 | 5   |        |       | [Final steps for RTL2GDS using tritonRoute and openSTA]()             | :pushpin: |
 
 # <p align="center"> Day 2: Good floorplan vs bad floorplan and introduction to library cells </p>
@@ -728,3 +728,58 @@ It can be seen that the **tech load sky1330A.tech** command loads the tech file.
 .
 # <p align="center"> **Day 4: Pre-layout timing analysis and importance of good clock tree** </p>
 ##  **SK1: Timing modelling using delay tables**
+### **1. Lab steps to convert grid info to track info**
+Now, we will convert the grid information in the layout to track information. The PnR tool uses the track information to place the lef file of the design into physical location. Specifically, the intersection of the vertical and horizontal tracks are used to place the input and output pads in the design. To do that, first we will take a look into the track information provided by **sky130 pdk**. 
+
+Use **cat** command to display the contents of the **track.info** file located inside the **pdks/sky130A/openlane/sky130_fd_sc_hd** directory. From the **openlane/vsdstdcelldesign** directory, it is located two step above in the tree. 
+
+```
+cat ../../pdks/sky130A/openlane/sky130_fd_sc_hd/track.info
+```
+This will show the following screen and each row has following columns in it. 
+
+| layer | axis | origin | width | 
+|:-----:|:----:|:------:|:-----:|
+
+<p align="center">
+    <img width=400 src="./day4/sk1/track_info.jpg">
+</p>
+
+We will use this information from **li1** to change to the track information. Open the **sky130_inv.imag** file located inside the **vsdstdcelldesign** folder using the following command. 
+
+```
+magic -d XR -T sky130A.tech sky130_inv.imag &
+```
+
+<p align="center">
+    <img src="./day4/sk1/magic1.jpg">
+</p>
+
+Then, we will use the following command to change the grid size to equal the track information.
+
+```
+grid 0.46um 0.34um 0.23um 0.17um
+```
+The effect of this command can be clearly seen in the following two screenshots. The left side of the screenshot has the original grid information, whereas the right side has a changed track information (simply put, the grid has become larger). Notice how the two input and output pads (A and Y) are placed in the intersection of the horizontal and vertical tracks. 
+
+<p align="center">
+    <img width=350 src="./day4/sk1/magic2.jpg">
+    <img width=350 src="./day4/sk1/magic3.jpg">
+</p>
+
+##  **SK2**
+##  **SK3**
+##  **SK4**
+
+
+<p align="center" >
+
+
+---
+
+</p>
+
+# <p align="center"> **Day 5: Final steps for RTL2GDS using tritonRoute and openSTA** </p>
+##  **SK1: **
+##  **SK2: **
+##  **SK3: **
