@@ -562,11 +562,13 @@ Another important file type to consider is the **LEF** filetype. These is a logi
 
 ### L9: Lab steps to create std cell layout and extract spice netlist
 :pushpin: For this example, the provided **sky130_inv.mag** is used. Therefore, to open this design, use the following command. 
+
 ```
 magic -T sky130A.tech sky130_inv.mag &
 ```
 
 The command to extract the netlist after creating the standard cell in **magic** is given below. 
+
 ```
 extract all
 ext2spice cthresh 0 rthresh 0
@@ -577,6 +579,7 @@ After these commands are executed, as shown in the figure below.
     <img width=500 src="./day3/sk2/magic_inverter8.jpg">
 </p>
 The following files will be created as shown below.
+
 ```
 sky130_inv.ext
 sky130_inv.spice
@@ -590,7 +593,7 @@ Inside the SPICE file, following can be found, which basically are the connectio
 ```python
 * SPICE3 file created from sky130_inv.ext - technology: sky130A
 
-.option scale=0.01u
+.option scale=0.10000u
 
 .subckt sky130_inv A Y VPWR VGND
 X0 Y A VGND VGND sky130_fd_pr__nfet_01v8 ad=0 pd=0 as=0 ps=0 w=35 l=23
@@ -605,11 +608,123 @@ C4 VPWR VGND 0.59fF
 
 ## **SK3: Sky130 Tech File Labs**
 ### **L1 - Lab steps to create final SPICE desk using Sky130 tech**
+Now edit the above created SPICE file as follows. Note we are calling a device 'M' defined by **n_hort_model.0** and **pshort_model.0** instead of the sub-circuit 'X' in this new model.
+
+```
+* SPICE3 file created from sky130_inv.ext - technology: sky130A
+
+.option scale=0.01u
+.include ./libs/pshort.lib
+.include ./libs/nshort.lib
+
+M0 Y A VGND VGND nshort_model.0 ad=0 pd=0 as=0 ps=0 w=35 l=23
+M1 Y A VPWR VPWR pshort_model.0 ad=0 pd=0 as=0 ps=0 w=37 l=23
+
+VSS VGND 0 0V
+Va A VGND PULSE(0V 3.3V 0 0.1ns 0.1ns 2ns 4ns)
+
+C0 A VPWR 0.07fF
+C1 A Y 0.05fF
+C2 Y VPWR 0.11fF
+C3 Y VGND 3fF
+C4 VPWR VGND 0.59fF
+
+.tran 1n 20n
+
+.control
+ run
+.endc
+
+.ends
+```
+
+Running **ngspice** with the following command the **sky130_inv.spice** file that we just created with the following command results in the output as shown below.
+
+```
+ngspice sky130_inv.spice
+```
+
+<p align="center">
+    <img width=800 src="./day3/sk3/ngspice1.jpg">
+</p>
+
+Then, running the analysis with the following commands results in the output waveforms as shown below.
+
+```
+plot y vs time a
+```
+
+<p align="center">
+    <img width=600 src="./day3/sk3/ngspice2.jpg">
+</p>
+
 ### **L2 - Lab steps to characterize inverter using sky130 model files**
+Then, the delays can be calculated using the method shown in [ :pushpin: Day 2 - SK4](). 
+
 ### **L3 - Lab introduction to Magic tool options and DRC rules**
+**Magic** is an open-source layout software developed in academia (University of California, Berkeley). The documentation of magic can be found in [opencircuitdesign.com/magic](http://opencircuitdesign.com/magic/). From the website, we can see that the basic usage of the **Magic** can be done as follows. **Magic** is mainly a command line software, so to get the best out of it, it is recommended to learn the command linx syntax of different tools within it. 
+
+```
+magic [-noc[onsole]] [-now[rapper]] [-norc[file]] [-d devType] [-T technology] [-rcfile startupFile] [file]
+```
+
+<p align="center">
+    <img width=600 src="./day3/sk3/magic1.jpg">
+</p>
+
+It contains many commands that let you set DRCs and then it also provides you a feature where you can use boolean logic to combine multiple rules and pass it as a single DRC.
+
+**Magic** provides the **drc** command to check the details of any DRC voilation that you may encounter. For example, 
+* **drc why**, 
+* **drc find**, 
+* **drc_count [total]**
+
 ### **L4 - Lab introduction to Sky130 pdk's and steps to download labs**
-### **L4 - Lab introduction to Magic and steps to load Sky130 tech-rules**
-### **L6 - Lab exercise to fix poly.9 error in Sky130 tech-file**
-### **L7 - Lab exercise to implement poly resistor spacing to diff and tap**
-### **L8 - Lab challenge exercise to describe DRC error as geometrical construct**
-### **L9 - Lab challenge to find missing or incorrect rules and fix them**
+
+We download the tarball package for the design rules provided by [Sky130 PDK](https://skywater-pdk.readthedocs.io/en/main/rules/background.html). This can be done with the following command. 
+
+```
+wget http://opencircuitdesign.com/open_pdks/archive/drc_tests.tgz
+```
+And, the file will be downloaded to your current folder. Then, you can use the following command to extract the files from the tarball. 
+
+```
+tar xfz drc_tests.tgz
+```
+
+The results will look something like this. 
+<p align="center">
+    <img width=400 src="./day3/sk3/magic2.jpg">
+</p>
+
+This package contains all the drcs and a sky130 tech file in the current working directory. 
+<p align="center">
+    <img width=400 src="./day3/sk3/magic3.jpg">
+</p>
+
+Among other things, this folder contains **.magicrc** file that is the startup file used by **Magic**. So, you can open **Magic** up without specifying the tech file (and for better graphics use the provided flags) as it has been done inside the startup file (as can be seen from the screenshot below) with the following command. 
+
+```
+magic -d XR &
+```
+
+<p align="center">
+    <img width=400 src="./day3/sk3/magic4.jpg">
+</p>
+
+It can be seen that the **tech load sky1330A.tech** command loads the tech file. 
+
+### **:construction: L4 - Lab introduction to Magic and steps to load Sky130 tech-rules**
+
+### :construction: L6 - Lab exercise to fix poly.9 error in Sky130 tech-file
+### :construction: L7 - Lab exercise to implement poly resistor spacing to diff and tap
+### :construction: L8 - Lab challenge exercise to describe DRC error as geometrical construct
+### :construction: L9 - Lab challenge to find missing or incorrect rules and fix them
+
+.
+
+.
+
+.
+# <p align="center"> **Day 4: Pre-layout timing analysis and importance of good clock tree** </p>
+##  **SK1: Timing modelling using delay tables**
