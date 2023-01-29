@@ -625,7 +625,7 @@ C4 VPWR VGND 0.59fF
 
 ## **SK3: Sky130 Tech File Labs**
 ### **L1 - Lab steps to create final SPICE desk using Sky130 tech**
-Now edit the above created SPICE file as follows. Note we are calling a device 'M' defined by **n_hort_model.0** and **pshort_model.0** instead of the sub-circuit 'X' in this new model.
+Now edit the above created SPICE file as follows. Note we are calling a device 'M' defined by **n_short_model.0** and **pshort_model.0** instead of the sub-circuit 'X' in this new model.
 
 ```
 * SPICE3 file created from sky130_inv.ext - technology: sky130A
@@ -777,6 +777,7 @@ Then, we will use the following command to change the grid size to equal the tra
 ```
 grid 0.46um 0.34um 0.23um 0.17um
 ```
+
 The effect of this command can be clearly seen in the following two screenshots. The left side of the screenshot has the original grid information, whereas the right side has a changed track information (simply put, the grid has become larger). Notice how the two input and output pads (A and Y) are placed in the intersection of the horizontal and vertical tracks. 
 
 <p align="center">
@@ -784,13 +785,267 @@ The effect of this command can be clearly seen in the following two screenshots.
     <img width=350 src="./day4/sk1/magic3.jpg">
 </p>
 
-##  **SK2**
+Another requirement is that the width of the standard cell must be an odd multiple of the x-pitch. 
+
+###  **2. Lab steps to convert magic layout to std cell LEF**
+To define a port type in **Magic** so that you can convert the input/output pin to the LEF file, you can follow the following step. 
+Select the area overlapping the input/output pin that you want to convert to. For example, in the following screenshot, input (A) has been selected.
+
+<p align="center">
+    <img width=500 src="./day4/sk1/magic_port1.jpg">
+</p>
+
+Then, by selecting **Edit**, click on **Text** and you will get the following window. Make adjustment accordingly and you click **Apply**. 
+
+<p align="center">
+    <img width=500 src="./day4/sk1/magic_port2.jpg">
+</p>
+
+Now, to define the port logically, we set the **port class** as **output** and we select the **port use** as **signal**. We do this to differentiate ports (signal or power or ground). After selecting the port, use the following commands. 
+
+```
+port class output
+port use signal
+```
+
+In the screenshot below (left), the output port (Y) is defined. And, in the right, the input port (A) is defined.
+
+<p align="center">
+    <img width=400 src="./day4/sk1/magic_port3.jpg">
+    <img width=400 src="./day4/sk1/magic_port4.jpg">
+</p>
+
+Similarly, in the screenshots below, power (left) and ground (right) ports are defined.
+
+<p align="center">
+    <img width=400 src="./day4/sk1/magic_port5.jpg">
+    <img width=400 src="./day4/sk1/magic_port6.jpg">
+</p>
+
+We can then save the file using the following commands
+
+```
+save sky130_rbinv.mag
+```
+
+We will go ahead and open the newly created **sky130_rbinv.mag** file with magic with the following command. 
+
+```
+magic -d XR -T sky130A.tech sky130_rbinv.mag &
+```
+<p align="center">
+    <img src="./day4/sk1/magic_mag1.jpg">
+</p>
+
+And, then use the following command to write lef file. Note that not specifying a filename creates the a lef file with the same name as the opened mag file.
+
+```
+lef write <filename>
+```
+
+<p align="center">
+    <img width=500 src="./day4/sk1/magic_mag2.jpg">
+</p>
+
+This has created the lef file, as seen in the following screenshot.
+<p align="center">
+    <img src="./day4/sk1/magic_mag3.jpg">
+</p>
+
+###  **3. Introduction to timing libs and steps to include new cell in synthesis**
+
+When you are in the **openlane** directory, use the following command to copy the newly created lef file into the **picorv32a/src** directory. 
+
+```
+cp vsdstdcelldesign/sky130_rbinv.lef designs/picorv32a/src/
+```
+<p align="center">
+    <img src="./day4/sk1/lef1.jpg">
+</p>
+
+Then, we will include the library files located inside **vsdstdcelldesign/libs** folder that has all the libraries which include the newly created custom cell (not the **sky130_rbinv** but the **sky130_vsdinv** created by the repo creater). However, let's try something and see if we could include **sky130_rbinv** file into the library (just the file, not the parameters, we will use the existing parameters).
+
+To do that, let's **cd** into the **vsdstdcelldesign** folder and open the libraries one by one and see what we find. First, create a copy of the original library files using the following command.
+
+```
+cp -r libs libs_orig
+```
+
+Then, cd into the libs folder and open up the libraries one by one. The first library file is **[sky130_fd_sc_hd__fast.lib](https://github.com/nickson-jose/vsdstdcelldesign/blob/master/libs/sky130_fd_sc_hd__fast.lib)**. If you open it up, and search for **sky130_vsdinv** you will see a listing as shown below (left). Change it to what we see in right. Let's replace the "sky130_vsdinv" with "sky130_rbinv" (the file that we created).
+
+<p align="center">
+    <img width=388 src="./day4/sk1/vsdinv1.jpg">
+    <img src="./day4/sk1/rbinv.jpg">
+</p>
+
+Repeat the step for the following files. 
+* [sky130_fd_sc_hd__slow.lib](https://github.com/nickson-jose/vsdstdcelldesign/blob/master/libs/sky130_fd_sc_hd__slow.lib)
+* [sky130_fd_sc_hd__typical.lib](https://github.com/nickson-jose/vsdstdcelldesign/blob/master/libs/sky130_fd_sc_hd__typical.lib)
+
+Now, we need to copy these new libraries to the **design/picorv32a/src** folder. We can simply do that with the following command. (Assuming we are in the **vsdstdcelldesign/libs** folder inside **openlane** folder).
+
+```
+cp sky130_fd_sc_hd__fast.lib sky130_fd_sc_hd__slow.lib sky130_fd_sc_hd__typical.lib ../../design/picorv32a/src/
+```
+
+<p align="center">
+    <img src="./day4/sk1/rbinv1.jpg">
+</p>
+
+Changing into the **src** folder and listing the files shows that we have all the necessary files for the next step. 
+
+<p align="center">
+    <img src="./day4/sk1/rbinv2.jpg">
+</p>
+
+
+Now, we will add the new library to the configuration file of the design. Modify the **config.tcl** file inside **picorv32a** directory to look like the following. Here, we are adding the following. 
+
+```
+set ::env(LIB_SYNTH) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__typical.lib"
+set ::env(LIB_MIN) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__fast.lib"
+set ::env(LIB_MAX) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__slow.lib"
+set ::env(LIB_TYPICAL) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__typical.lib"
+
+
+set ::env(EXTRA_LEFS) [glob $::env(OPENLANE_ROOT)/designs/$::env(DESIGN_NAME)/src/*.lef]
+```
+
+Now, we re-run the whole proces to see if the inclusion of our standard cell works.
+
+<p align="center">
+    <img width=500 src="./day4/sk1/rbinv3.jpg">
+</p>
+
+Re-running, we get the following output. 
+<p align="center">
+    <img width=500 src="./day4/sk1/openlane_1.jpg">
+</p>
+
+We need to change our configuration file. It seems that both **LIB_MIN** and **LIB_MAX** have been depreciated. We we will have to use **LIB_FASTEST** and **LIB_SLOWEST** as we see in the picture below.
+<p align="center">
+    <img width=500 src="./day4/sk1/config1.jpg">
+</p>
+
+Re-running, we get a successful execution.
+
+<p align="center">
+    <img width=500 src="./day4/sk1/openlane_2.jpg">
+</p>
+
+[Note: we are using the **-tag** and **-overwrite** flags to make sure that the results are written to the previously created **28-01_19-44** directory.]
+
+We, then, run the synthesis, we get the following (intermediate) screen (left) that shows our standard cell **sky130_rbinv** has indeed been used. However, from the final output (right), it seems that there has been a huge slack voilation during this stage. 
+
+<p align="center">
+    <img width=350 src="./day4/sk1/openlane_3.jpg">
+    <img width=400 src="./day4/sk1/openlane_4.jpg">
+</p>
+
+We have to change the SYNTH_STRATEGY switch and re-run the run_synthesis step to see if any strategy will be able to fix this slack issue. To set the value, we do the following. 
+
+```
+set ::env(SYNTH_STRATEGY) "DELAY 1"
+```
+
+|Run | SYNTH_STRATEGY |     TNS  |   WNS  |     Area      |
+|:--:|:--------------:|:--------:|:------:|:-------------:|
+| 1  |    AREA 0      |  -711.59 | -23.89 | 147712.918400 | 
+| 2  |    DELAY 1     |      0   |  0     | 209181.872000 | 
+
+With the second run, the negative slack issues has been solved and we got the results laid out in the second row of the above table. Also, note that the area for the second run has increased by nearly **41.6%**.
+
+<p align="center">
+    <img width=350 src="./day4/sk1/openlane_5.jpg">
+    <img width=400 src="./day4/sk1/openlane_6.jpg">
+</p>
+
+Now, we run the floorplan for the design using our own standard cell. Howeve, running a standard command **run_floorplan** produces error as shown below. 
+
+<p align="center">
+    <img width=400 src="./day4/sk1/floorplan_1.jpg">
+</p>
+
+Therefore, we will have to take the longer route to the final result. **run_floorplan** is actually a wrapper command for the internal commands that allow more control over the process. Therefore, the first command to run is to initialize the design for floorplan using the following command. 
+
+```
+init_floorplan
+```
+
+This produces the following output messages on the screen and is then successfully completed.
+
+<p align="center">
+    <img width=400 src="./day4/sk1/floorplan_2.jpg">
+</p>
+
+Then, the second step is to run the IO placer using the following command. 
+
+```
+place_io
+```
+
+<p align="center">
+    <img width=400 src="./day4/sk1/floorplan_3.jpg">
+</p>
+
+At this point, we can try finding our Waldo in the beach of gates. The name of our Waldo is *sky130_rbinv* and it should be somewhere in the beach or sea. We can **cd** into the floorplan directory and then open **Magic** using the following command to open the floorplan def file. 
+
+```
+magic -d XR -T ~/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.floorplan.def
+```
+Then, zooming in little by little, we start seeing the glimpse of our inverter.
+
+**Do you see it?**
+
+<p align="center">
+    <img width=400 src="./day4/sk1/floorplan_rbinv1.jpg">
+</p>
+
+**Did you find our Waldo?** 
+
+<p align="center">
+    <img width=400 src="./day4/sk1/floorplan_rbinv2.jpg">
+</p>
+
+**Times Up! Here's our Waldo!**
+<p align="center">
+    <img width=400 src="./day4/sk1/floorplan_rbinv3.jpg">
+</p>
+
+
+Remember that previously we talked about two placement stages. The first global placement stage is when the cells are placed approximately then a detailed placement step fixes the proper slots for all the cells. We then run the global placement using the following command. During this step, we again see that our slack requirements have been met (right).
+
+```
+global_placement_or
+```
+
+<p align="center">
+    <img width=300 src="./day4/sk1/floorplan_4.jpg">
+    <img width=300 src="./day4/sk1/floorplan_5.jpg">
+</p>
+
+Then, we run the detailed placement step using the following command. 
+
+```
+detailed_placement
+```
+And, we obtain the following messages and it runs successfully. 
+<p align="center">
+    <img width=300 src="./day4/sk1/floorplan_6.jpg">
+    <img width=300 src="./day4/sk1/floorplan_7.jpg">
+</p>
+
+
 ##  **SK3**
 ##  **SK4**
 
 
-<p align="center" >
 
+
+
+
+
+<p align="center" >
 
 ---
 
