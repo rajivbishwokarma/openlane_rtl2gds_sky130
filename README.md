@@ -966,7 +966,7 @@ Now, we run the floorplan for the design using our own standard cell. Howeve, ru
     <img width=400 src="./day4/sk1/floorplan_1.jpg">
 </p>
 
-Therefore, we will have to take the longer route to the final result. **run_floorplan** is actually a wrapper command for the internal commands that allow more control over the process. Therefore, the first command to run is to initialize the design for floorplan using the following command. 
+Therefore, we will have to take the longer route to the final result. **run_floorplan** is actually a wrapper command for the internal commands that allow more control over the process. Therefore, the first command to run is **floorplan** using the following command. 
 
 ```
 init_floorplan
@@ -976,16 +976,6 @@ This produces the following output messages on the screen and is then successful
 
 <p align="center">
     <img width=400 src="./day4/sk1/floorplan_2.jpg">
-</p>
-
-Then, the second step is to run the IO placer using the following command. 
-
-```
-place_io
-```
-
-<p align="center">
-    <img width=400 src="./day4/sk1/floorplan_3.jpg">
 </p>
 
 At this point, we can try finding our Waldo in the beach of gates. The name of our Waldo is *sky130_rbinv* and it should be somewhere in the beach or sea. We can **cd** into the floorplan directory and then open **Magic** using the following command to open the floorplan def file. 
@@ -1013,7 +1003,17 @@ Then, zooming in little by little, we start seeing the glimpse of our inverter.
 </p>
 
 
-Remember that previously we talked about two placement stages. The first global placement stage is when the cells are placed approximately then a detailed placement step fixes the proper slots for all the cells. We then run the global placement using the following command. During this step, we again see that our slack requirements have been met (right).
+Then, the second step is to run the **IO placer** using the following command. 
+
+```
+place_io
+```
+
+<p align="center">
+    <img width=400 src="./day4/sk1/floorplan_3.jpg">
+</p>
+
+Remember that previously we talked about two **placement** stages. The first **global placement** stage is when the cells are placed approximately then a **detailed placement** step fixes the proper slots for all the cells. We then run the global placement using the following command. During this step, we again see that our slack requirements have been met (right).
 
 ```
 global_placement_or
@@ -1034,6 +1034,61 @@ And, we obtain the following messages and it runs successfully.
     <img width=300 src="./day4/sk1/floorplan_6.jpg">
     <img width=300 src="./day4/sk1/floorplan_7.jpg">
 </p>
+
+We then **place tap and decap cells** to prevent any irregularities in the power rails. We do this using the following command.
+
+```
+tap_decap_or
+```
+
+We get the message that the step has been run properly. And, this can be verified using the following screenshot.
+<p align="center">
+    <img width=300 src="./day4/sk1/floorplan_8.jpg">
+</p>
+
+And, then we again run the **detailed placement**. This might be a little confusing: did we not already run the this step? Oh, how nice of you to notice. Well, you see, we first ran the detailed placement to place all the components so that we could estimate the wire lengths and capacitances. Now that we did and placed the tap and decap points in near to the power rails, we need to again adjust these specific components so that they do not voilate any other rules. Therefore, we again run the detailed placement using the same command. 
+
+```
+detailed_placement
+```
+And, again, we get a message like these. 
+<p align="center">
+    <img width=300 src="./day4/sk1/floorplan_9.jpg">
+    <img width=326 src="./day4/sk1/floorplan_10.jpg">
+</p>
+
+Then, we generate the Power Distribution Network (PDN) with the following command. 
+
+```
+gen_pdn
+```
+<p align="center">
+    <img width=300 src="./day4/sk1/floorplan_11.jpg">
+    <img width=360 src="./day4/sk1/floorplan_12.jpg">
+</p>
+
+
+After the completion of the power distribution network generation, we finally run the routing throughout the design with the following command. 
+
+```
+run_routing
+```
+
+The left screenshot shows the initiation of the **run_routing** command and the right screenshot shows the status of the violations, which is pretty huge.
+
+<p align="center">
+    <img width=300 src="./day4/sk1/floorplan_13.jpg">
+    <img width=300 src="./day4/sk1/floorplan_14.jpg">
+</p>
+
+Then, after **$64^{th}$** iteration, we get to the following report. 
+
+<p align="center">
+    <img width=300 src="./day4/sk1/floorplan_15.jpg">
+    <img width=300 src="./day4/sk1/floorplan_16.jpg">
+</p>
+
+There are still 4 violations in the design and we need to fix them.
 
 
 ##  **SK3**
