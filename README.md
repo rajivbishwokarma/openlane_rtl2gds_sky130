@@ -51,12 +51,12 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 |     |        |  L1   | [IO Placer Revision](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l0-io-placer-revision)        |  :100:    |
 |     |        |  L2   | [SPICE deck creation for CMOS inverter](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l1-spice-deck-creation-for-cmos-inverter-vtc)        |  :100:    |
 |     |        |  L3   | [Switching Threshold](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l3-switching-threshold-v_m)        |  :100:    |
-|     |        |  L4   | [ Static and dynamic simulation of CMOS inverter](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l4-static-and-dynamic-simulation-of-cmos-inverter-)        |  :100:    |
-|     |        |  L5   | [ Git clone the VSD standard cell](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l5-git-clone-the-vsd-standard-cell-)        |  :100:    |
+|     |        |  L4   | [ Static and dynamic simulation of CMOS inverter](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l4-static-and-dynamic-simulation-of-cmos-inverter)        |  :100:    |
+|     |        |  L5   | [ Git clone the VSD standard cell](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l5-git-clone-the-vsd-standard-cell)        |  :100:    |
 |     |   SK2  |       | [Inception of Layout and CMOS fabrication process](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#sk2-inception-of-layout-and-cmos-fabrication-process)        |  :100:    |
 |     |   SK3  |       | [Sky130 Tech File Labs](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#sk3-sky130-tech-file-labs)        |  :100:    |
 |     |        |  L1   | [Lab steps to create final SPICE desk using Sky130 tech](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l1---lab-steps-to-create-final-spice-desk-using-sky130-tech)        |  :100:    |
-| 4   |        |       | [Pre-layout timing analysis and importance of good clock tree](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-day-4-pre-layout-timing-analysis-and-importance-of-good-clock-tree-)      | :construction: |
+| 4   |        |       | [Pre-layout timing analysis and importance of good clock tree](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-day-4-pre-layout-timing-analysis-and-importance-of-good-clock-tree)      | :construction: |
 |     |   SK1  |       | [Timing modelling using delay tables](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#sk1-timing-modelling-using-delay-tables)        |  :100:    |
 |     |        |  L1   | [Lab steps to convert grid info to track info](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#1-lab-steps-to-convert-grid-info-to-track-info)        |  :100:    |
 |     |        |  L2   | [Lab steps to convert magic layout to std cell LEF](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#2-lab-steps-to-convert-magic-layout-to-std-cell-lef)        |  :100:    |
@@ -491,21 +491,10 @@ Netlist creation for a simple inverter circuit with following specification (val
 ### **L2: SPICE Simulation lab for CMOS inverter**
 Running simulation with ngspice with two sets of parameters as shown below will result in the graphs below.
 
-:pushpin: [ Need to fix rendering of the table]
-
 | Spec 1  | Spec 2|
 |:-------:|:-----:|
 | W_n=0.375  W_p=0.375u  L_np=0.25u    |       W_n= 0.375  W_p=0.9375u  L_np=0.25u    |
 | W_n/L_n = W_p/L_p = 1.5              |       W_n/L_n = W_p/L_p  = 3.75              |
-
-$$  W_n=0.375 & W_p=0.375u & L_{n,p}=0.25u $$   
-
-$$  W_n= 0.375 \ W_p=0.9375u \ L_{n,p}=0.25u $$
-
-$$  \frac{W_n}{L_n} = \frac{W_p}{L_p} = 1.5 $$ 
-
-$$  \frac{W_n}{L_n} = \frac{W_p}{L_p} =3.75 $$
-
 
 <p align="center">
 <img width=350 src="./day3/sk1/l1_cmos_inverter3.jpg">
@@ -519,7 +508,7 @@ Switching threhold is a point at which the device switches. To find this, we dra
 
 From visual inspection, it can be seen that the threshold values for the given waveforms are approximately around 0.98V for Spec-1 and 1.2 for Spec-2.
 
-### **L4: Static and dynamic simulation of CMOS inverter **
+### **L4: Static and dynamic simulation of CMOS inverter**
 Dynamic simulation is done in the same way as we did the static simulation in the previous section. The only difference is that, here, we provide a pulse as an external stimulus. We do this by using the following command in the SPICE circuit. 
 
 In the previous netlist, we had: **Vin in  0 2.5** as the input stimulus. We replace that with the following power source input.
@@ -560,7 +549,7 @@ Simulating the above model in **ngspice** results in the following waveform.
     <img width= 600 src="./day3/sk1/l4_cmos_inverter.jpg">
 </p>
 
-### **L5: Git clone the VSD standard cell **
+### **L5: Git clone the VSD standard cell**
 Before we proceed, we need to have a standard cell. But, for this module, we are going to use a pre-designed standard cell from this [GitHub Repo](https://github.com/nickson-jose/vsdstdcelldesign).
 
 Clone the repo into your **openlane** directory. And, you are ready to go.
@@ -819,18 +808,11 @@ magic -d XR &
 
 It can be seen that the **tech load sky1330A.tech** command loads the tech file. 
 
-### **:construction: L4 - Lab introduction to Magic and steps to load Sky130 tech-rules**
+#
 
-### :construction: L6 - Lab exercise to fix poly.9 error in Sky130 tech-file
-### :construction: L7 - Lab exercise to implement poly resistor spacing to diff and tap
-### :construction: L8 - Lab challenge exercise to describe DRC error as geometrical construct
-### :construction: L9 - Lab challenge to find missing or incorrect rules and fix them
+#
 
-.
-
-.
-
-.
+#
 # <p align="center"> **Day 4: Pre-layout timing analysis and importance of good clock tree** </p>
 ##  **SK1: Timing modelling using delay tables**
 ### **1. Lab steps to convert grid info to track info**
