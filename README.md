@@ -495,13 +495,7 @@ Running simulation with ngspice with two sets of parameters as shown below will 
 
 | Spec 1  | Spec 2|
 |:-------:|:-----:|
-|        
-
-$$  W_n=0.375 \ W_p=0.375u \ L_{n,p}=0.25u $$       
-
-|           
-
-$$  W_n= 0.375 \ W_p=0.9375u \ L_{n,p}=0.25u $$     
+|        $$  W_n=0.375 \ W_p=0.375u \ L_{n,p}=0.25u $$       |       $$  W_n= 0.375 \ W_p=0.9375u \ L_{n,p}=0.25u $$       |
 
 |
 
