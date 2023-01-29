@@ -423,7 +423,7 @@ $$ transition\ time_{rising} = time(slew\\_high\\_rise\\_thr) - time(slew\\_low\
 And, transition time for a falling waveform can be calcualted as,
 
 
-$$ transition\ time_{falling} = time(slew \_ high \_ fall \_ thr) - time(slew \_ low \_ fall \_ thr) $$
+$$ transition\ time_{falling} = time(slew\\_high\\_fall\\_thr) - time(slew\\_low\\_fall\\_thr) $$
 
 
 
