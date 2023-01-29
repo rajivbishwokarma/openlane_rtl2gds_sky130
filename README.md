@@ -411,12 +411,12 @@ Delays are calculated, for example, in the input side by taking the 50% values f
 
 As stated earlier, the delay can be calculated using the following formula: 
 
-
-$$ delay = time(out \_ [] \_ thr) - time(in \_ []] \_ thr) $$
-
 ```
 delay = time(out_*_thr) - time(in_*_thr)
 ```
+
+$$ delay = time(out \_ [] \_ thr) - time(in \_ []] \_ thr) $$
+
 
 Similarly, transition time for a rising waveform can be calculated as, 
 
