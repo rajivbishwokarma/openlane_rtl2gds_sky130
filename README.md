@@ -493,11 +493,13 @@ Running simulation with ngspice with two sets of parameters as shown below will 
 
 :pushpin: [ Need to fix rendering of the table]
 
-| Spec 1  | Spec 2|
-|:-------:|:-----:|
-| $$  W_n=0.375 \ W_p=0.375u \ L_{n,p}=0.25u $$  | $$  W_n= 0.375 \ W_p=0.9375u \ L_{n,p}=0.25u $$ |
-| $$  \frac{W_n}{L_n} = \frac{W_p}{L_p} = 1.5 $$ | $$  \frac{W_n}{L_n} = \frac{W_p}{L_p} =3.75 $$ |
+Spec 1
+$$  W_n=0.375 \ W_p=0.375u \ L_{n,p}=0.25u $$ 
+$$  \frac{W_n}{L_n} = \frac{W_p}{L_p} = 1.5 $$
 
+Spec 2
+$$  W_n= 0.375 \ W_p=0.9375u \ L_{n,p}=0.25u $$ 
+$$  \frac{W_n}{L_n} = \frac{W_p}{L_p} =3.75 $$ 
 
 <p align="center">
 <img width=350 src="./day3/sk1/l1_cmos_inverter3.jpg">
