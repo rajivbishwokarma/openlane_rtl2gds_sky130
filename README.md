@@ -18,7 +18,7 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 # <p align="center"> Table of Contents </p>
 | Day | Module |Part|                          Topic                                       | Status  |
 |:---|:------|:------|:--------------------------------------------------------------------|:-------:|
-| 1   |        |       |[Inception of open-source EDA, OpenLANE, and Sky130 PDK]()           |:pushpin:|
+| 1   |        |       |[Inception of open-source EDA, OpenLANE, and Sky130 PDK](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-day-1-inception-of-open-source-eda-openlane-and-sky130-pdk)           |:pushpin:|
 | 2   |        |       |[Good floorplan vs bad floorplan and introduction to library cells](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#day-2-good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells)        |   :100:      |
 |     | SK1    |       | [Chip floor planning considerations](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#sk1-power-planning-and-floor-planning)        |    :100:     |
 |     |        |  L1   | [Utilization Factor and Aspect Ratio](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-utilization-factor-and-aspect-ratio) |   :100: |
@@ -44,7 +44,21 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 |     |        |  L1   | [Timing threshold definition](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |   :100:     |
 |     |        |  L2   | [Propagation delay and transition time](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:     |
 | 3   |        |       | [Design library cell using Magic Layout and ngspice characterization](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-day-3-design-library-cell-using-magic-layout-and-ngspice-characterization-) | :100:  |
+|     |   SK1  |       | [Labs for CMOS inverter ngspice simulation](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#sk1-labs-for-cmos-inverter-ngspice-simulation)        |  :100:    |
+|     |        |  L1   | [IO Placer Revision](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l0-io-placer-revision)        |  :100:    |
+|     |        |  L2   | [SPICE deck creation for CMOS inverter](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l1-spice-deck-creation-for-cmos-inverter-vtc)        |  :100:    |
+|     |        |  L3   | [Switching Threshold](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l3-switching-threshold-v_m)        |  :100:    |
+|     |        |  L4   | [ Static and dynamic simulation of CMOS inverter](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l4-static-and-dynamic-simulation-of-cmos-inverter-)        |  :100:    |
+|     |        |  L5   | [ Git clone the VSD standard cell](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l5-git-clone-the-vsd-standard-cell-)        |  :100:    |
+|     |   SK2  |       | [Inception of Layout and CMOS fabrication process](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#sk2-inception-of-layout-and-cmos-fabrication-process)        |  :100:    |
+|     |   SK3  |       | [Sky130 Tech File Labs](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#sk3-sky130-tech-file-labs)        |  :100:    |
+|     |        |  L1   | [Lab steps to create final SPICE desk using Sky130 tech](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l1---lab-steps-to-create-final-spice-desk-using-sky130-tech)        |  :100:    |
 | 4   |        |       | [Pre-layout timing analysis and importance of good clock tree](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-day-4-pre-layout-timing-analysis-and-importance-of-good-clock-tree-)      | :construction: |
+|     |   SK1  |       | [Timing modelling using delay tables](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#sk1-timing-modelling-using-delay-tables)        |  :100:    |
+|     |        |  L1   | [Lab steps to convert grid info to track info](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#1-lab-steps-to-convert-grid-info-to-track-info)        |  :100:    |
+|     |        |  L2   | [Lab steps to convert magic layout to std cell LEF](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#2-lab-steps-to-convert-magic-layout-to-std-cell-lef)        |  :100:    |
+|     |        |  L3   | [Introduction to timing libs and steps to include new cell in synthesis](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#3-introduction-to-timing-libs-and-steps-to-include-new-cell-in-synthesis)        |  :100:    |
+|     |   SK3  |       | [Running CTS using TritonCTS](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#sk3---running-cts-using-tritoncts)        |  :construction:    |
 | 5   |        |       | [Final steps for RTL2GDS using tritonRoute and openSTA]()             | :construction: |
 
 
@@ -53,9 +67,10 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 #
 #
 # <p align="center"> Day 1: Inception of open-source EDA, OpenLANE and Sky130 PDK</p>
+## Simplified RTL to GDSII Flow
 
-
-
+![Simplified RTL2GDSII Flow](./day1/sk1/rtl2gds.jpg)
+![OpenLANE Flow](./day1/sk1/openlane.jpg)
 
 #
 #
