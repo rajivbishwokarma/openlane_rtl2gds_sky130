@@ -18,19 +18,19 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 # <p align="center"> Table of Contents </p>
 | Day | Module |Part|                          Topic                                       | Status  |
 |:---|:------|:------|:--------------------------------------------------------------------|:-------:|
-| 1   |        |       |[Inception of open-source EDA, OpenLANE, and Sky130 PDK](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-day-1-inception-of-open-source-eda-openlane-and-sky130-pdk)           | :construction:|
+| 1   |        |       |[Inception of open-source EDA, OpenLANE, and Sky130 PDK](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-day-1-inception-of-open-source-eda-openlane-and-sky130-pdk)           | :100:|
 |     |        |       | [Simplified RTL to GDSII Flow](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#simplified-rtl-to-gdsii-flow)        |    :100:     |
 |     |        |       | [OpenLANE Architecture](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#openlane-architecture)        |    :100:     |
 |     |        |       | [Starting the OpenLANE Flow](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#starting-the-openlane-flow)        |    :100:     |
-| 2   |        |       |[Good floorplan vs bad floorplan and introduction to library cells](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#day-2-good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells)        |   :100:      |
+| 2   |        |       |[Good floorplan vs bad floorplan and introduction to library cells](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-day-2-good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells-)        |   :100:      |
 |     | SK1    |       | [Chip floor planning considerations](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#sk1-power-planning-and-floor-planning)        |    :100:     |
-|     |        |  L1   | [Utilization Factor and Aspect Ratio](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-utilization-factor-and-aspect-ratio) |   :100: |
-|     |        |  L2   | [Pre-placed cells](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-pre-placed-cells) |  :100:  |
-|     |        |  L3   | [Decoupling capacitors](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-decoupling-capacitors) | :100:   |
-|     |        |  L4   | [Power Planning](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-power-planning) | :100:   |
+|     |        |  L1   | [Utilization Factor and Aspect Ratio](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l1-utilization-factor-and-aspect-ratio) |   :100: |
+|     |        |  L2   | [Pre-placed cells](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l2-pre-placed-cells) |  :100:  |
+|     |        |  L3   | [Decoupling capacitors](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l3-decoupling-capacitors) | :100:   |
+|     |        |  L4   | [Power Planning](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l4-power-planning) | :100:   |
 |     |        |  L5   | [Pin placement and logic cell placement blockage](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l5-pin-placement-and-logical-cell-placement-blockage) |   :100: |
-|     |        |L6-LAB | [Steps to run floorplan using OpenLANE](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l7-review-floorplan-files-and-steps-to-view-floorplan) |  :100:  |
-|     |        |L7-LAB | [Review floorplan files and steps to view floorplan](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) | :100:   |
+|     |        |L6-LAB | [Steps to run floorplan using OpenLANE](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l6-steps-to-run-floorplan-using-openlane) |  :100:  |
+|     |        |L7-LAB | [Review floorplan files and steps to view floorplan](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l7-review-floorplan-files-and-steps-to-view-floorplan) | :100:   |
 |     |        |L8-LAB | [Review floorplan layout in Magic](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l8-review-floorplan-layout-in-magic) |  :100:  |
 |     | SK2    |       | [Library Binding and Placement](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#sk2-library-binding-and-placement)        |    :100:     |
 |     |        |  L1   | [Netlist binding and initial place design](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l1-netlist-binding-and-initial-place-design) |  :100:       |
@@ -56,7 +56,7 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 |     |   SK2  |       | [Inception of Layout and CMOS fabrication process](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#sk2-inception-of-layout-and-cmos-fabrication-process)        |  :100:    |
 |     |   SK3  |       | [Sky130 Tech File Labs](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#sk3-sky130-tech-file-labs)        |  :100:    |
 |     |        |  L1   | [Lab steps to create final SPICE desk using Sky130 tech](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l1---lab-steps-to-create-final-spice-desk-using-sky130-tech)        |  :100:    |
-| 4   |        |       | [Pre-layout timing analysis and importance of good clock tree](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-day-4-pre-layout-timing-analysis-and-importance-of-good-clock-tree-)      | :construction: |
+| 4   |        |       | [Pre-layout timing analysis and importance of good clock tree](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-day-4-pre-layout-timing-analysis-and-importance-of-good-clock-tree-)      | :100: |
 |     |   SK1  |       | [Timing modelling using delay tables](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#sk1-timing-modelling-using-delay-tables)        |  :100:    |
 |     |        |  L1   | [Lab steps to convert grid info to track info](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#1-lab-steps-to-convert-grid-info-to-track-info)        |  :100:    |
 |     |        |  L2   | [Lab steps to convert magic layout to std cell LEF](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#2-lab-steps-to-convert-magic-layout-to-std-cell-lef)        |  :100:    |
