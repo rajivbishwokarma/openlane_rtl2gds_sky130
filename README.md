@@ -67,10 +67,64 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 #
 #
 # <p align="center"> Day 1: Inception of open-source EDA, OpenLANE and Sky130 PDK</p>
-## Simplified RTL to GDSII Flow
 
+## Simplified RTL to GDSII Flow
 ![Simplified RTL2GDSII Flow](./day1/sk1/rtl2gds.jpg)
+
+A simplified step from RTL to GDSII consists of the blocks shown in the image above. The OpenLANE flow takes in the RTL from your design and the PDKs provided by the foundries. Then, everything else is automated. OpenLane's architecture is shown below.
+
+
+## OpenLANE Architecture
 ![OpenLANE Flow](./day1/sk1/openlane.jpg)
+
+OpenLANE aims to be a completely automated tool with no-human-in the loop. During these series of lectures, and labs. The following tools from OpenLANE will be extensively used. The complete list can be found [here](https://openlane.readthedocs.io/en/latest/flow_overview.html).
+
+|        Tool        |       Description         |
+|:------------------:|:-------------------------:|
+|     yosis/abc           | Synthesizing RTL and maping it to technology |
+|     init_floorplan      | Running floorplan |
+|     ioplacer            | Placing the input and output ports |
+|     pdngen              | Generate PDN |
+|     tap_decap_or        | Place welltap and decap cells |
+|     RePlAce             | Performs global placement |
+|     TritonCTS           | Clock tree synthesis | 
+|     FastRoute           | Global routing for guide generation for detailed routing |
+|     TritonRoute         | Detailed routing |
+|     Magic               | Viewing layout, doing DRC checks |
+
+
+## Start the docker environment
+After we **cd** into the following folder, we can start the environment with the **docker** command. Also, the newer version expects the **make mount** comand for the docker to start.
+```
+~/Desktop/work/tools/openlane_working_dir/openlane/
+```
+
+
+## Starting the OpenLANE Flow
+We use the following command to run the OpenLANE flow and we use the **-interactive** switch to make all the steps interactive.
+
+```
+./flow.tcl -interactive
+```
+We are then greeted with the OpenLANE welcome screen. Then, we will have to type the following commands to initialize the openlane packages and then to prepare our design.
+
+```
+package require openlane 0.9
+
+prep -design picorv32a
+```
+This can be seen in the following screenshot. 
+
+![Welcome Screen](./day1//sk3/openlane_design_prep.jpg)
+
+Then, we run synthesis using the following command.
+
+```
+run_synthesis
+```
+
+This will create a **run** folder inside the **(OPENLANE)/designs/picorv32a/** directory. This can be seen in the image below.
+![Welcome Screen](./day1//sk3/openlane_design_prep3.jpg)
 
 #
 #
