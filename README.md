@@ -426,15 +426,11 @@ And, transition time for a falling waveform can be calcualted as,
 $$ transition\ time_{falling} = time(slew\\_high\\_fall\\_thr) - time(slew\\_low\\_fall\\_thr) $$
 
 
+#
 
-.
+#
 
-.
-
-.
-
-.
-
+#
 # <p align="center"> **Day-3: Design library cell using Magic Layout and ngspice characterization** </p>
 ## SK1: Labs for CMOS inverter ngspice simulation
 ### L0: **IO placer revision**
@@ -463,7 +459,7 @@ In the images below (left), we can already see how the change has occured. Notic
 
 
 ### **L1: SPICE deck creation for CMOS inverter [VTC]**
-:construction: First step for before running a SPICE simulation is to create a SPICE deck. SPICE deck is a netlist containing all the connectivity information (inputs, tap points). 
+First step for before running a SPICE simulation is to create a SPICE deck. SPICE deck is a netlist containing all the connectivity information (inputs, tap points). 
 
 Netlist creation for a simple inverter circuit with following specification (values and nodes).
 
@@ -498,8 +494,8 @@ Running simulation with ngspice with two sets of parameters as shown below will 
 :pushpin: [ Need to fix rendering of the table]
 
 | Spec 1| Spec 2|
-|:----:|:-----:
-| $  W_n=0.375 \ W_p=0.375u \ L_{n,p}=0.25u $  | $$  W_n= 0.375 \ W_p=0.9375u \ L_{n,p}=0.25u $$ |
+
+| $$  W_n=0.375 \ W_p=0.375u \ L_{n,p}=0.25u $$  | $$  W_n= 0.375 \ W_p=0.9375u \ L_{n,p}=0.25u $$ |
 | $$  \frac{W_n}{L_n} = \frac{W_p}{L_p} = 1.5 $$ | $$  \frac{W_n}{L_n} = \frac{W_p}{L_p} =3.75 $$ |
 
 
