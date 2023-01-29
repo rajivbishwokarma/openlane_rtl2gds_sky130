@@ -18,31 +18,34 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 # <p align="center"> Table of Contents </p>
 | Day | Module |Part|                          Topic                                       | Status  |
 |:---|:------|:------|:--------------------------------------------------------------------|:-------:|
-| 1   |        |       |[Inception of open-source EDA, OpenLANE, and Sky130 PDK](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-day-1-inception-of-open-source-eda-openlane-and-sky130-pdk)           |:pushpin:|
+| 1   |        |       |[Inception of open-source EDA, OpenLANE, and Sky130 PDK](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-day-1-inception-of-open-source-eda-openlane-and-sky130-pdk)           | :construction:|
+|     |        |       | [Simplified RTL to GDSII Flow](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#simplified-rtl-to-gdsii-flow)        |    :100:     |
+|     |        |       | [OpenLANE Architecture](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#openlane-architecture)        |    :100:     |
+|     |        |       | [Starting the OpenLANE Flow](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#starting-the-openlane-flow)        |    :100:     |
 | 2   |        |       |[Good floorplan vs bad floorplan and introduction to library cells](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#day-2-good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells)        |   :100:      |
 |     | SK1    |       | [Chip floor planning considerations](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#sk1-power-planning-and-floor-planning)        |    :100:     |
 |     |        |  L1   | [Utilization Factor and Aspect Ratio](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-utilization-factor-and-aspect-ratio) |   :100: |
 |     |        |  L2   | [Pre-placed cells](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-pre-placed-cells) |  :100:  |
 |     |        |  L3   | [Decoupling capacitors](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-decoupling-capacitors) | :100:   |
 |     |        |  L4   | [Power Planning](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-power-planning) | :100:   |
-|     |        |  L5   | [Pin placement and logic cell placement blockage](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |   :100: |
-|     |        |L6-LAB | [Steps to run floorplan using OpenLANE](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:  |
+|     |        |  L5   | [Pin placement and logic cell placement blockage](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l5-pin-placement-and-logical-cell-placement-blockage) |   :100: |
+|     |        |L6-LAB | [Steps to run floorplan using OpenLANE](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l7-review-floorplan-files-and-steps-to-view-floorplan) |  :100:  |
 |     |        |L7-LAB | [Review floorplan files and steps to view floorplan](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) | :100:   |
-|     |        |L8-LAB | [Review floorplan layout in Magic](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:  |
+|     |        |L8-LAB | [Review floorplan layout in Magic](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l8-review-floorplan-layout-in-magic) |  :100:  |
 |     | SK2    |       | [Library Binding and Placement](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#sk2-library-binding-and-placement)        |    :100:     |
-|     |        |  L1   | [Netlist binding and initial place design](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:       |
-|     |        |  L2   | [Optimize placement using estimated wire-length and capacitance](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |   :100:      |
-|     |        |  L3   | [Final placement optimization](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:       |
-|     |        |  L4   | [Need for libraries and characterization](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:       |
-|     |        |L5-LAB | [Congestion aware placement using RePlAce](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:       |
-|     | SK3    |       | [Cell design and characterization flows](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#)        |   :100:     |
-|     |        |  L1   | [Inputs for cell design flow](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:       |
-|     |        |  L2   | [Circuit design step](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |   :100:      |
-|     |        |  L3   | [Layout design step](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:      |
-|     |        |  L4   | [Typical characterization flow](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:       |
-|     | SK4    |       | [General timing characterization parameters](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#)        |  :100:    |
-|     |        |  L1   | [Timing threshold definition](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |   :100:     |
-|     |        |  L2   | [Propagation delay and transition time](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:     |
+|     |        |  L1   | [Netlist binding and initial place design](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l1-netlist-binding-and-initial-place-design) |  :100:       |
+|     |        |  L2   | [Optimize placement using estimated wire-length and capacitance](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l2-optimize-placement-using-estimated-wire-length-and-capacitance) |   :100:      |
+|     |        |  L3   | [Final placement optimization](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l3-final-placement-optimization) |  :100:       |
+|     |        |  L4   | [Need for libraries and characterization](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l4-need-for-libraries-and-characterization) |  :100:       |
+|     |        |L5-LAB | [Congestion aware placement using RePlAce](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l5-congestion-aware-placement-using-replace) |  :100:       |
+|     | SK3    |       | [Cell design and characterization flows](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#sk3-cell-design-and-characterization-flows)        |   :100:     |
+|     |        |  L1   | [Inputs for cell design flow](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l1-inputs-for-cell-design-flow) |  :100:       |
+|     |        |  L2   | [Circuit design step](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l2-circuit-design-step) |   :100:      |
+|     |        |  L3   | [Layout design step](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l3-layout-design-step) |  :100:      |
+|     |        |  L4   | [Typical characterization flow](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l4-typical-characterization-flow) |  :100:       |
+|     | SK4    |       | [General timing characterization parameters](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#sk4-general-timing-characterization-parameters)        |  :100:    |
+|     |        |  L1   | [Timing threshold definition](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l1-timing-threshold-definition) |   :100:     |
+|     |        |  L2   | [Propagation delay and transition time](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l2-propagation-delay-and-transition-time) |  :100:     |
 | 3   |        |       | [Design library cell using Magic Layout and ngspice characterization](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-day-3-design-library-cell-using-magic-layout-and-ngspice-characterization-) | :100:  |
 |     |   SK1  |       | [Labs for CMOS inverter ngspice simulation](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#sk1-labs-for-cmos-inverter-ngspice-simulation)        |  :100:    |
 |     |        |  L1   | [IO Placer Revision](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l0-io-placer-revision)        |  :100:    |
@@ -408,15 +411,15 @@ Delays are calculated, for example, in the input side by taking the 50% values f
 
 As stated earlier, the delay can be calculated using the following formula: 
 
-$$ delay = time(out\_ * \_ thr) - time(in\_ * \_ thr) $$
+$$ delay = time(out \_ - \_ thr) - time(in \_ - \_ thr) $$
 
 Similarly, transition time for a rising waveform can be calculated as, 
 
-$$ transition\ time_{rising} = time(slew\_ high\_ rise\_ thr) - time(slew\_ low\_ rise\_ thr) $$
+$$ transition\ time_{rising} = time(slew \_ high \_ rise \_ thr) - time(slew \_ low \_ rise \_ thr) $$
 
 And, transition time for a falling waveform can be calcualted as,
 
-$$ transition\ time_{falling} = time(slew\_high\_fall\_thr) - time(slew\_low\_fall\_thr) $$
+$$ transition\ time_{falling} = time(slew \_ high \_ fall \_ thr) - time(slew \_ low \_ fall \_ thr) $$
 
 
 .
