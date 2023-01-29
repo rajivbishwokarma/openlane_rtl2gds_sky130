@@ -97,7 +97,7 @@ OpenLANE aims to be a completely automated tool with no-human-in the loop. Durin
 
 
 ## Start the docker environment
-After we **cd** into the following folder, we can start the environment with the **docker** command. Also, the newer version expects the **make mount** comand for the docker to start.
+After we **cd** into the following folder, the newer version of docker expects the **make mount** way of starting it so do that [it will save some headache down the line].
 ```
 ~/Desktop/work/tools/openlane_working_dir/openlane/
 ```
@@ -1166,6 +1166,17 @@ run_cts
     <img width=400 src="./day4/sk1/cts1.jpg">
     <img width=400 src="./day4/sk1/cts2.jpg">
 </p>
+
+After some investiation, I discovered that the error might be because of openflow version command usage. Therefore, opening the docker using **make mount** instead of the regular docker command following command fixed it.
+```
+docker run -it -v $(pwd):/openLANE_flow -v $PDK_ROOT:$PDK_ROOT -e PDK_ROOT=$PDK_ROOT -u \$(id -u $USER):$(id -g $USER) efabless/openlane:v0.21**
+```
+
+:shipit: To summarize, use **make mount** instead of the **docker** command to run the flow. Then, when you use **run_cts**, your clock tree is successfully synthesized as shown below.You can see the message generated.
+<p align="center">
+    <img width=600 src="./day5/cts.jpg">
+</p>
+
 
 
 #
