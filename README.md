@@ -19,9 +19,6 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 | Day | Module |Part|                          Topic                                       | Status  |
 |:---|:------|:------|:--------------------------------------------------------------------|:-------:|
 | 1   |        |       |[Inception of open-source EDA, OpenLANE, and Sky130 PDK]()           |:pushpin:|
-|     | SK1    |       |[Introduction to RISC-V, QFN-48, Physical chip layout]()             |         |
-|     | SK2    |       |[Simplified and detailed RTL2GDS flow using OpenLANE]()              |         |
-|     | SK3    |       |[Using OpenLANE for synthesizing sample Pico-RISC-V module]()        |         |
 | 2   |        |       |[Good floorplan vs bad floorplan and introduction to library cells](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#day-2-good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells)        |   :100:      |
 |     | SK1    |       | [Chip floor planning considerations](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#sk1-power-planning-and-floor-planning)        |    :100:     |
 |     |        |  L1   | [Utilization Factor and Aspect Ratio](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-utilization-factor-and-aspect-ratio) |   :100: |
@@ -48,10 +45,20 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 |     |        |  L2   | [Propagation delay and transition time](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#) |  :100:     |
 | 3   |        |       | [Design library cell using Magic Layout and ngspice characterization](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-day-3-design-library-cell-using-magic-layout-and-ngspice-characterization-) | :100:  |
 | 4   |        |       | [Pre-layout timing analysis and importance of good clock tree](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-day-4-pre-layout-timing-analysis-and-importance-of-good-clock-tree-)      | :construction: |
-| 5   |        |       | [Final steps for RTL2GDS using tritonRoute and openSTA]()             | :pushpin: |
+| 5   |        |       | [Final steps for RTL2GDS using tritonRoute and openSTA]()             | :construction: |
+
+
+#
+#
+#
+#
+# <p align="center"> Day 1: Inception of open-source EDA, OpenLANE and Sky130 PDK</p>
 
 
 
+
+#
+#
 # <p align="center"> Day 2: Good floorplan vs bad floorplan and introduction to library cells </p>
 ##  **SK1: Power planning and floor planning**
 This section covers multiple topics ranging from utilization factor, aspect ratio, pre-placed cells and de-coupling capacitors to power planning and floor planning.
@@ -1080,7 +1087,6 @@ magic -d XR -T ~/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/
 <p align="center">
     <img width=400 src="./day4/sk1/placement2.jpg">
     <img width=400 src="./day4/sk1/placement3.jpg">
-
 </p>
 
 
@@ -1091,10 +1097,17 @@ We can run clock tree synthesis using the following command.
 run_cts
 ```
 
+:pushpin: Right now, running cts is creating some error. Investigation needed.
+
+<p align="center">
+    <img width=400 src="./day4/sk1/cts1.jpg">
+    <img width=400 src="./day4/sk1/cts2.jpg">
+</p>
 
 
-
-
+#
+#
+# <p align="center"> **Day 5: Final steps for RTL2GDS using tritonRoute and openSTA** </p>
 
 After the completion of the power distribution network generation, we finally run the routing throughout the design with the following command. 
 
@@ -1116,25 +1129,29 @@ Then, after **$64^{th}$** iteration, we get to the following report.
     <img width=300 src="./day4/sk1/floorplan_16.jpg">
 </p>
 
-There are still 4 violations in the design and we need to fix them.
+There are still 4 violations in the design and we need to fix them. And, we will find the information about this violation inside the triton report located in the following directory. 
 
+```
+$(OPENLANE)/design/picorv32a/runs/28-01_19-44/reports/routing/21-tritonRoute.drc
+```
 
-##  **SK3**
-##  **SK4**
-
-
-
-
-
-
-
-<p align="center" >
-
----
-
+<p align="center">
+    <img src="./day4/sk1/triton1.jpg">
 </p>
 
-# <p align="center"> **Day 5: Final steps for RTL2GDS using tritonRoute and openSTA** </p>
-##  **SK1: **
-##  **SK2: **
-##  **SK3: **
+When we open it, we will get the violations as shown below. 
+
+```
+  violation type: Short
+    srcs: VGND _08603_ 
+    bbox = ( 559.52, 383.28 ) - ( 559.66, 383.76 ) on Layer met2
+  violation type: Short
+    srcs: VGND _08601_ 
+    bbox = ( 558.83, 383.28 ) - ( 558.97, 383.76 ) on Layer met2
+  violation type: Short
+    srcs: VGND _07966_ 
+    bbox = ( 559.52, 399.6 ) - ( 559.66, 400.08 ) on Layer met2
+  violation type: Short
+    srcs: VGND _08322_ 
+    bbox = ( 558.7, 399.6 ) - ( 558.74, 400.08 ) on Layer met2
+```
