@@ -753,7 +753,7 @@ plot y vs time a
 </p>
 
 ### **L2 - Lab steps to characterize inverter using sky130 model files**
-Then, the delays can be calculated using the method shown in [ :pushpin: Day 2 - SK4](). 
+Then, the delays can be calculated using the method shown in [Day2-SK4-L2](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l2-propagation-delay-and-transition-time). 
 
 ### **L3 - Lab introduction to Magic tool options and DRC rules**
 **Magic** is an open-source layout software developed in academia (University of California, Berkeley). The documentation of magic can be found in [opencircuitdesign.com/magic](http://opencircuitdesign.com/magic/). From the website, we can see that the basic usage of the **Magic** can be done as follows. **Magic** is mainly a command line software, so to get the best out of it, it is recommended to learn the command linx syntax of different tools within it. 
