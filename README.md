@@ -56,7 +56,7 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 |     |   SK2  |       | [Inception of Layout and CMOS fabrication process](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#sk2-inception-of-layout-and-cmos-fabrication-process)        |  :100:    |
 |     |   SK3  |       | [Sky130 Tech File Labs](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#sk3-sky130-tech-file-labs)        |  :100:    |
 |     |        |  L1   | [Lab steps to create final SPICE desk using Sky130 tech](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#l1---lab-steps-to-create-final-spice-desk-using-sky130-tech)        |  :100:    |
-| 4   |        |       | [Pre-layout timing analysis and importance of good clock tree](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-day-4-pre-layout-timing-analysis-and-importance-of-good-clock-tree)      | :construction: |
+| 4   |        |       | [Pre-layout timing analysis and importance of good clock tree](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#-day-4-pre-layout-timing-analysis-and-importance-of-good-clock-tree-)      | :construction: |
 |     |   SK1  |       | [Timing modelling using delay tables](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#sk1-timing-modelling-using-delay-tables)        |  :100:    |
 |     |        |  L1   | [Lab steps to convert grid info to track info](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#1-lab-steps-to-convert-grid-info-to-track-info)        |  :100:    |
 |     |        |  L2   | [Lab steps to convert magic layout to std cell LEF](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#2-lab-steps-to-convert-magic-layout-to-std-cell-lef)        |  :100:    |
