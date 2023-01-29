@@ -1067,6 +1067,30 @@ gen_pdn
     <img width=360 src="./day4/sk1/floorplan_12.jpg">
 </p>
 
+And, opening the newly created placement file using magic, we can see how wonderful it seems.
+
+```
+magic -d XR -T ~/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def
+```
+<p align="center">
+    <img src="./day4/sk1/placement1.jpg">
+</p>
+
+
+<p align="center">
+    <img width=400 src="./day4/sk1/placement2.jpg">
+    <img width=400 src="./day4/sk1/placement3.jpg">
+
+</p>
+
+
+
+### **3. Lab steps to configure OpenSTA for post-synth timing analysis**
+
+
+
+
+
 
 After the completion of the power distribution network generation, we finally run the routing throughout the design with the following command. 
 
