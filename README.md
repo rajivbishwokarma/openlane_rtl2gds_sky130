@@ -415,7 +415,7 @@ As stated earlier, the delay can be calculated using the following formula:
 delay = time(out_*_thr) - time(in_*_thr)
 ```
 
-$$ delay = time() \ - \ time() $$
+$$ delay = time(out\_thr) \ - \ time(in\_thr) $$
 
 
 Similarly, transition time for a rising waveform can be calculated as, 
