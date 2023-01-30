@@ -64,7 +64,7 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 |     |   SK3  |       | [Running CTS using TritonCTS](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#sk3---running-cts-using-tritoncts)        |  :100:    |
 | 5   |        |       | [Final steps for RTL2GDS using tritonRoute and openSTA]()             | :100: |
 |     |   1    |       | [Final chip layout]() | :100: |
-|     |   2    |       | [**sky130_rbinv** in the final chip layout]() | :100: |
+|     |   2    |       | [**sky130_rbinv** in the final chip layout](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#2-sky130_rbinv-in-the-final-chip-layout) | :100: |
 
 
 #
@@ -1260,7 +1260,7 @@ And, behold, this is the final layout that we got.
     <img src="./day5/gds.jpg">
 </p>
 
-1. **Final chip layout**
+### 1. **Final chip layout**
 
 Zooming in, we can see all the power distribution network, IO pins and logic cells.
 
