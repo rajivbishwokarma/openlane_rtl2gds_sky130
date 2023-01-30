@@ -63,7 +63,7 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 |     |        |  L3   | [Introduction to timing libs and steps to include new cell in synthesis](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#3-introduction-to-timing-libs-and-steps-to-include-new-cell-in-synthesis)        |  :100:    |
 |     |   SK3  |       | [Running CTS using TritonCTS](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#sk3---running-cts-using-tritoncts)        |  :100:    |
 | 5   |        |       | [Final steps for RTL2GDS using tritonRoute and openSTA]()             | :100: |
-|     |   1    |       | [Final chip layout]() | :100: |
+|     |   1    |       | [Final chip layout](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#1-final-chip-layout) | :100: |
 |     |   2    |       | [**sky130_rbinv** in the final chip layout](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#2-sky130_rbinv-in-the-final-chip-layout) | :100: |
 
 
