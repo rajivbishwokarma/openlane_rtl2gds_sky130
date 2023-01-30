@@ -61,8 +61,10 @@ ASIC design is an involved process. In the distant past (few decades ago), ASIC 
 |     |        |  L1   | [Lab steps to convert grid info to track info](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#1-lab-steps-to-convert-grid-info-to-track-info)        |  :100:    |
 |     |        |  L2   | [Lab steps to convert magic layout to std cell LEF](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#2-lab-steps-to-convert-magic-layout-to-std-cell-lef)        |  :100:    |
 |     |        |  L3   | [Introduction to timing libs and steps to include new cell in synthesis](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#3-introduction-to-timing-libs-and-steps-to-include-new-cell-in-synthesis)        |  :100:    |
-|     |   SK3  |       | [Running CTS using TritonCTS](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#sk3---running-cts-using-tritoncts)        |  :construction:    |
-| 5   |        |       | [Final steps for RTL2GDS using tritonRoute and openSTA]()             | :construction: |
+|     |   SK3  |       | [Running CTS using TritonCTS](https://github.com/rajivbishwokarma/openlane_rtl2gds_sky130#sk3---running-cts-using-tritoncts)        |  :100:    |
+| 5   |        |       | [Final steps for RTL2GDS using tritonRoute and openSTA]()             | :100: |
+|     |   1    |       | [Final chip layout]() | :100: |
+|     |   2    |       | [**sky130_rbinv** in the final chip layout]() | :100: |
 
 
 #
@@ -1229,3 +1231,49 @@ When we open it, we will get the violations as shown below.
     srcs: VGND _08322_ 
     bbox = ( 558.7, 399.6 ) - ( 558.74, 400.08 ) on Layer met2
 ```
+
+Finally, we are ready to see the final result of our work. To do that, we first run the following command inside the OpenLANE flow. 
+
+```
+run_magic
+```
+
+This will generate the **mag** file that we can view using **Magic** file.
+
+<p align="center">
+    <img width=600 src="./day5/magfile.jpg">
+</p>
+
+And, finally, we can use magic to see the physical layout of the PicoRV32A chip that we created.
+
+```
+magic -d XR -T ~/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech picorv32a.mag
+```
+
+<p align="center">
+    <img src="./day5/magfile2.jpg">
+</p>
+
+And, behold, this is the final layout that we got.
+
+<p align="center">
+    <img src="./day5/gds.jpg">
+</p>
+
+1. **Final chip layout**
+
+Zooming in, we can see all the power distribution network, IO pins and logic cells.
+
+<p align="center">
+    <img src="./day5/gds2.jpg">
+</p>
+
+### 2. **sky130_rbinv** in the final chip layout
+
+Zooming in further, we can see the custom cell **sky13_rbinv** that we placed in the design.
+
+<p align="center">
+    <img src="./day5/rbinv.jpg">
+</p>
+
+That marks the completion of the RTL2GDSII process.
